@@ -1,0 +1,89 @@
+Requirements
+
+Recruiters
+- post job
+- list posted jobs
+- view jobseekers who applied by job/by day/both
+
+Jobseekers
+- save jobs
+- view saved jobs
+- view applied-to jobs
+- apply to jobs
+- can not use others resume
+- can use diff resume for diff jobs
+
+Jobs
+- two kinds: JReq and ATS
+- JReq requires resume
+- ATS does not require resume
+
+TheLadders
+- view jobseeker who applied by day
+- view aggregate #applications by job and by recruiter
+
+Display Rules 
+- display recruiter by name
+- display jobseeker by name
+- display job by title
+
+Misc Rules
+- more than one recruiter with same name
+- more than one jobseeker with same name
+- more than one job with same title
+
+=======================================
+Scratchpad Design
+
+JobRepository
+- postJob
+- getJobList
+
+Jobs
+- id
+- title
+- resumeRequired
+- createFromParams
+- createFromText
+
+JobPosting
+- jobId
+- recruiterId
+- postDateTime
+
+Recruiter
+- id
+- name
+
+RecruiterCollection - assumed
+
+JobSeeker
+- id
+- name
+
+JobSeekerAccount
+- id
+- resumeList
+- savedJobList
+- appliedToJobList
+------------------
+- saveJob
+- getSavedJobList
+- applyToJob
+- getAppliedToJobList
+
+JobSeekerCollection assumed
+ResumeCollection assumed
+
+Resume
+- text
+
+JobApplication
+- jobSeekerId
+- resumeId
+- jobPostingId
+- applicationDateTime
+
+JobApplicationCollection
+- getApplicationList(filter)
+- getApplicationCount(filter)
