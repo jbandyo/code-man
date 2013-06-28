@@ -47,9 +47,16 @@ Jobs
 - createFromText
 
 JobPosting
-- jobId
-- recruiterId
-- postDateTime
+- Recruiter
+- PostingContext
+
+PostingContext
+- Job
+- PostingTime
+
+JobPostingCollection
+- getApplicationList(filter)
+- getApplicationCount(filter)
 
 Recruiter
 - id

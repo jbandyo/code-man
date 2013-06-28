@@ -14,6 +14,7 @@ public class JobTitle
     // validate
     if ((_title == null) || (_title.length() == 0))
       throw new IllegalArgumentException();
+ 
     // check for max length ???
     title = _title;
   }
