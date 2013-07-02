@@ -42,9 +42,9 @@ public abstract class Job implements Displayable
   }
   
   // interface method implementation
-  public void Display()
+  public void display()
   {
-    title.Display();    
+    title.display();    
   }
 
 }

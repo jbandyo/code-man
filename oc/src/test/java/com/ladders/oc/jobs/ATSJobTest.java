@@ -11,14 +11,14 @@ public class ATSJobTest
   public void testATSJobConstructor()
   {
     ATSJob job = new ATSJob(new JobTitle("Developer"));
-    assertNotNull(job);
+    assertNotNull("ATSJob constructor must create the object", job);
   }
 
   @Test
   public void testATSJobDisplay()
   {
     ATSJob job = new ATSJob(new JobTitle("Developer"));
-    job.Display();
+    job.display();
   }
 
 }

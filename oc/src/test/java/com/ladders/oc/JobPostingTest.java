@@ -16,7 +16,7 @@ public class JobPostingTest
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Date now = new Date();
     JobPosting posting = new JobPosting(job, now);
-    assertNotNull(posting);
+    assertNotNull("JobPosting constructor must create the object", posting);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -35,7 +35,7 @@ public class JobPostingTest
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Date now = new Date();
     JobPosting posting = new JobPosting(job, now);
-    posting.Display();
+    posting.display();
   }
  
 }

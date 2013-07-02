@@ -1,6 +1,7 @@
 package com.ladders.oc;
 
 import java.util.*;
+
 import com.ladders.oc.jobs.*;
 
 /**
@@ -91,6 +92,24 @@ class RecruiterPostings
         RecPostTuple tuple = iterator.next();
         if (tuple.recruiter == recruiter)
           jobList.add(tuple.posting);
+      }
+    }
+    return jobList;
+  }
+
+  /**
+   * Returns all postings.
+   * @return list of postings
+   */
+  public List<JobPosting> listJobs()
+  {
+    List<JobPosting> jobList = new ArrayList<JobPosting>();
+    synchronized (postingList)
+    {
+      Iterator<RecPostTuple> iterator = postingList.iterator();
+      while (iterator.hasNext())
+      {
+          jobList.add(iterator.next().posting);
       }
     }
     return jobList;

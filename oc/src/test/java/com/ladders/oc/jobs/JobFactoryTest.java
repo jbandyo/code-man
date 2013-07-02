@@ -11,7 +11,7 @@ public class JobFactoryTest
   public void testCreateATSJob()
   {
     ATSJob job = JobFactory.createATSJob(new JobTitle("Developer"));
-    assertNotNull(job);
+    assertNotNull("CreateATSJob must create the object", job);
   }
 
   @Test
@@ -19,7 +19,7 @@ public class JobFactoryTest
   {
     JobTitle title = new JobTitle("Developer");
     JReqJob job = JobFactory.createJReqJob(new JobTitle("Developer"));
-    assertNotNull(job);
+    assertNotNull("CreateJReqJob must create the object", job);
   }
 
 }

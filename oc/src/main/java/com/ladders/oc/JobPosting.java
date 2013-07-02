@@ -28,9 +28,9 @@ public class JobPosting implements Displayable
   }
 
   // interface method implementation
-  public void Display()
+  public void display()
   {
-    job.Display();    
+    job.display();    
   }
 }
 

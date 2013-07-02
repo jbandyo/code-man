@@ -11,7 +11,7 @@ public class NameTest
   public void testNameConstructor()
   {
     Name name = new Name("John");
-    assertNotNull(name);
+    assertNotNull("Name constructor must create the object", name);
   }
 
   @Test(expected = IllegalArgumentException.class)

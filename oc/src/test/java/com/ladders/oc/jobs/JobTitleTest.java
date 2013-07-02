@@ -11,7 +11,7 @@ public class JobTitleTest
   public void testJobTitleConstructor()
   {
     JobTitle title = new JobTitle("Developers");
-    assertNotNull(title);
+    assertNotNull("JobTitle constructor must create the object", title);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -30,7 +30,7 @@ public class JobTitleTest
   public void testDisplay()
   {
     JobTitle title = new JobTitle("Developer");
-    title.Display();
+    title.display();
   }
 
 }

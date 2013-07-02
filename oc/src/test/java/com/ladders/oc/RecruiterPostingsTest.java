@@ -4,62 +4,107 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import com.ladders.oc.jobs.*;
 
 public class RecruiterPostingsTest
 {
-  @Test
-  public void testJobRepositoryInstance()
+  static RecruiterPostings repo = null;
+  static Recruiter recruiter1 = null;
+  static Recruiter recruiter2 = null;
+  static Job job1 = null;
+  static Job job2 = null;
+  static Job job3 = null;
+  
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception
   {
-    RecruiterPostings repo = RecruiterPostings.getInstance();
+    repo = RecruiterPostings.getInstance();
+    recruiter1 = new Recruiter(new Name("John"));
+    recruiter2 = new Recruiter(new Name("Henry"));
+    job1 = JobFactory.createATSJob(new JobTitle("Developer"));
+    job2 = JobFactory.createATSJob(new JobTitle("Architect"));
+    job3 = JobFactory.createATSJob(new JobTitle("Programmer"));
+  }
+
+  @AfterClass
+  public static void tearDownAfterClass() throws Exception
+  {
+    repo = null;    
+    recruiter1 = null;
+    recruiter2 = null;
+    job1 = null;
+    job2 = null;
+    job3 = null;
+  }
+
+  @Before
+  public void setUp() throws Exception
+  {
+  }
+
+  @After
+  public void tearDown() throws Exception
+  {
+    repo.deleteAllPostings();
+  }
+
+  @Test
+  public void testRecruiterPostingsTestInstance()
+  {
     assertNotNull(repo);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPostJobWithNullArgument()
   {
-    RecruiterPostings repo = RecruiterPostings.getInstance();
-    Recruiter recruiter = new Recruiter(new Name("John"));
-    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     repo.postJob(null, null);
-    repo.postJob(recruiter, null);
-    repo.postJob(null, job);
+    repo.postJob(recruiter1, null);
+    repo.postJob(null, job1);
   }
 
   @Test
   public void testPostJob()
   {
-    RecruiterPostings repo = RecruiterPostings.getInstance();
-    Recruiter recruiter = new Recruiter(new Name("John"));
-    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     int prevCount = repo.getNumberOfPostings();
-    repo.postJob(recruiter, job);
+    repo.postJob(recruiter1, job1);
     int curCount = repo.getNumberOfPostings();
-    assertEquals(prevCount+1, curCount);
+    assertEquals("Posting count should go up by one after postJob", prevCount+1, curCount); // assuming single-threaded testing
     repo.deleteAllPostings();
     curCount = repo.getNumberOfPostings();
-    assertEquals(curCount, 0);
+    assertEquals("Posting count should be zero after deleteAllPostings", curCount, 0);
   }
   
   @Test(expected = IllegalArgumentException.class)
   public void testListJobsWithNullArgument()
   {
-    RecruiterPostings repo = RecruiterPostings.getInstance();
     List<JobPosting> joblist = repo.listJobs(null);
   }
 
   @Test
-  public void testListJobs()
+  public void testListJobsAll()
   {
-    RecruiterPostings repo = RecruiterPostings.getInstance();
-    Recruiter recruiter = new Recruiter(new Name("John"));
-    Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
-    repo.postJob(recruiter, job1);
-    Job job2 = JobFactory.createATSJob(new JobTitle("Architect"));
-    repo.postJob(recruiter, job2);
-    List<JobPosting> joblist = repo.listJobs(recruiter);
+    repo.postJob(recruiter1, job1);
+    repo.postJob(recruiter1, job2);
+    repo.postJob(recruiter2, job3);
+    List<JobPosting> joblist = repo.listJobs();
+    assertNotNull("listJobs must not return null", joblist);
+    assertEquals("listLobs with no input must return all jobs", joblist.size(), 3);
   }
   
+  @Test
+  public void testListJobsByRecruiter()
+  {
+    repo.postJob(recruiter1, job1);
+    repo.postJob(recruiter1, job2);
+    repo.postJob(recruiter2, job3);
+    List<JobPosting> joblist = repo.listJobs(recruiter1);
+    assertNotNull("listJobs must not return null", joblist);
+    assertEquals("listLobs for a recruiter must return all jobs posted by the recruiter",joblist.size(), 2);
+  }
 
 }

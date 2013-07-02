@@ -25,9 +25,9 @@ public class JobTitle implements Displayable
   }
 
   // interface method implementation
-  public void Display()
+  public void display()
   {
-    DisplayDevice.getInstance().DisplayLine(title); 
+    DisplayDevice.getInstance().displayLine(title); 
   }
 
 }

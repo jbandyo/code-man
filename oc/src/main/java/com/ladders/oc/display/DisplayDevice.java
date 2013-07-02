@@ -13,7 +13,7 @@ public class DisplayDevice implements DisplayHandler
   }
 
   @Override
-  public void DisplayLine(String line)
+  public void displayLine(String line)
   {
     System.out.println(line);
   }

@@ -11,13 +11,13 @@ public class DisplayDeviceTest
   public void testDisplayDeviceConstructor()
   {
     DisplayDevice device = DisplayDevice.getInstance();
-    assertNotNull(device);
+    assertNotNull("DisplayDevice constructor must create the object", device);
   }
   
   @Test
   public void testDisplayLine()
   {
-    DisplayDevice.getInstance().DisplayLine("Test line");
+    DisplayDevice.getInstance().displayLine("Test line");
   }  
 
 }
