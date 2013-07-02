@@ -10,9 +10,15 @@ public class JReqJobTest
   @Test
   public void testJReqJobConstructor()
   {
-    JobTitle title = new JobTitle("Developer");
-    JReqJob job = new JReqJob(title);
+    JReqJob job = new JReqJob(new JobTitle("Architect"));
     assertNotNull(job);
+  }
+
+  @Test
+  public void testJReqJobDisplay()
+  {
+    JReqJob job = new JReqJob(new JobTitle("Architect"));
+    job.Display();
   }
 
 }

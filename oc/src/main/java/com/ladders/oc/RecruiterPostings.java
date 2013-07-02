@@ -3,6 +3,9 @@ package com.ladders.oc;
 import java.util.*;
 import com.ladders.oc.jobs.*;
 
+/**
+ * Manages job postings by recruiters.
+ */
 class RecruiterPostings
 {
 
@@ -20,30 +23,39 @@ class RecruiterPostings
   
   private List<RecPostTuple>  postingList = null;
   
-  private static final class SingletonHolder 
-  {
-    static final RecruiterPostings singleton = new RecruiterPostings();
-  }
-
   private RecruiterPostings() 
   {
     postingList = Collections.synchronizedList(new ArrayList<RecPostTuple>());  
   }
 
+  // singleton pattern implementation
+  private static final class SingletonHolder 
+  {
+    static final RecruiterPostings singleton = new RecruiterPostings();
+  }
   public static RecruiterPostings getInstance()
   {
     return SingletonHolder.singleton;
   }
 
+  /**
+   * Adds a job posting to repository.
+   * @param recruiter  Recruiter instance
+   * @param job        Job instance
+   * @throws IllegalArgumentException
+   */
   public void postJob(Recruiter recruiter,
                       Job job) throws IllegalArgumentException
   {
+    // validate
     if ((recruiter == null) || (job == null))
       throw new IllegalArgumentException();
 
+    // create posting with posting time
     Date now = new Date();
     JobPosting posting = new JobPosting(job, now);
 
+    // add posting to repository
     RecPostTuple rpost = new RecPostTuple(recruiter, posting);
     postingList.add(rpost);
   }
@@ -58,10 +70,20 @@ class RecruiterPostings
     postingList.clear();
   }
 
-  public List<JobPosting> listJobs(Recruiter recruiter)
+  /**
+   * Returns postings entered by a recruiter.
+   * @param  recruiter  Recruiter instance
+   * @return list of postings
+   * @throws IllegalArgumentException
+   */
+  public List<JobPosting> listJobs(Recruiter recruiter) throws IllegalArgumentException
   {
+    // validate
+    if (recruiter == null)
+      throw new IllegalArgumentException();
+
     List<JobPosting> jobList = new ArrayList<JobPosting>();
-    synchronized(postingList)
+    synchronized (postingList)
     {
       Iterator<RecPostTuple> iterator = postingList.iterator();
       while (iterator.hasNext())
@@ -73,5 +95,4 @@ class RecruiterPostings
     }
     return jobList;
   }
-
 }

@@ -2,13 +2,16 @@ package com.ladders.oc;
 
 import java.util.UUID;
 
+/**
+ * Represents a Recruiter.
+ */
 public class Recruiter
 {
   UUID uId;
   Name name;
 
   /**
-   * Constructs a Recruiter.
+   * Constructor.
    * @param _name    a Name object
    */
   public Recruiter(Name _name) throws IllegalArgumentException

@@ -1,9 +1,11 @@
 package com.ladders.oc.jobs;
 
+import com.ladders.oc.display.*;
+
 /**
  * Creates a wrapper object for job title.
  */
-public class JobTitle
+public class JobTitle implements Displayable
 {
   private String title;
   
@@ -20,6 +22,12 @@ public class JobTitle
  
     // check for max length ???
     title = _title;
+  }
+
+  // interface method implementation
+  public void Display()
+  {
+    DisplayDevice.getInstance().DisplayLine(title); 
   }
 
 }

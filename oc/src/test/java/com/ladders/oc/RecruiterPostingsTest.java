@@ -9,12 +9,22 @@ import com.ladders.oc.jobs.*;
 
 public class RecruiterPostingsTest
 {
-
   @Test
   public void testJobRepositoryInstance()
   {
     RecruiterPostings repo = RecruiterPostings.getInstance();
     assertNotNull(repo);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testPostJobWithNullArgument()
+  {
+    RecruiterPostings repo = RecruiterPostings.getInstance();
+    Recruiter recruiter = new Recruiter(new Name("John"));
+    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
+    repo.postJob(null, null);
+    repo.postJob(recruiter, null);
+    repo.postJob(null, job);
   }
 
   @Test
@@ -31,6 +41,13 @@ public class RecruiterPostingsTest
     curCount = repo.getNumberOfPostings();
     assertEquals(curCount, 0);
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testListJobsWithNullArgument()
+  {
+    RecruiterPostings repo = RecruiterPostings.getInstance();
+    List<JobPosting> joblist = repo.listJobs(null);
+  }
 
   @Test
   public void testListJobs()
@@ -43,4 +60,6 @@ public class RecruiterPostingsTest
     repo.postJob(recruiter, job2);
     List<JobPosting> joblist = repo.listJobs(recruiter);
   }
+  
+
 }

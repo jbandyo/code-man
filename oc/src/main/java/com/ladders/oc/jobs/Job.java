@@ -1,12 +1,14 @@
 package com.ladders.oc.jobs;
 
 import java.util.UUID;
-import com.ladders.oc.Recruiter;
+import com.ladders.oc.*;
+import com.ladders.oc.display.DisplayDevice;
+import com.ladders.oc.display.Displayable;
 
 /**
  * Abstract base class for all job types.
  */
-public abstract class Job
+public abstract class Job implements Displayable
 {
   protected UUID uId;
   protected JobTitle title;
@@ -39,4 +41,10 @@ public abstract class Job
     return (int)(uId.getLeastSignificantBits());
   }
   
+  // interface method implementation
+  public void Display()
+  {
+    title.Display();    
+  }
+
 }

@@ -10,9 +10,15 @@ public class ATSJobTest
   @Test
   public void testATSJobConstructor()
   {
-    JobTitle title = new JobTitle("Developer");
-    ATSJob job = new ATSJob(title);
+    ATSJob job = new ATSJob(new JobTitle("Developer"));
     assertNotNull(job);
+  }
+
+  @Test
+  public void testATSJobDisplay()
+  {
+    ATSJob job = new ATSJob(new JobTitle("Developer"));
+    job.Display();
   }
 
 }

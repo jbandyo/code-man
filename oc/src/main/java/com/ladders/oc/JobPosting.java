@@ -1,16 +1,23 @@
 package com.ladders.oc;
 
 import java.util.Date;
+
+import com.ladders.oc.display.Displayable;
 import com.ladders.oc.jobs.Job;
 
 /**
  * Represents a single job posting consisting of the job and posting time.
  */
-public class JobPosting
+public class JobPosting implements Displayable
 {
   private Job job;
   private Date postTime;
   
+  /**
+   * @param _job
+   * @param _postTime
+   * @throws IllegalArgumentException
+   */
   public JobPosting(Job _job,
                     Date _postTime) throws IllegalArgumentException
   {
@@ -18,6 +25,12 @@ public class JobPosting
       throw new IllegalArgumentException();
     job = _job;
     postTime = _postTime;
+  }
+
+  // interface method implementation
+  public void Display()
+  {
+    job.Display();    
   }
 }
 

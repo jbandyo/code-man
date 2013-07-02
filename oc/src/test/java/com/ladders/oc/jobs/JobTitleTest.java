@@ -25,5 +25,12 @@ public class JobTitleTest
   {
     JobTitle title = new JobTitle("");
   }
-  
+ 
+  @Test
+  public void testDisplay()
+  {
+    JobTitle title = new JobTitle("Developer");
+    title.Display();
+  }
+
 }
