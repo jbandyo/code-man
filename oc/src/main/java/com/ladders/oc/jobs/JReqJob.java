@@ -1,12 +1,15 @@
 package com.ladders.oc.jobs;
 
+/**
+ * Represents a jReq Job.
+ */
 public class JReqJob extends Job
 {
   /**
-   * Constructs a JReq Job.
+   * Constructor.
    * @param _title    a JobTitle object
    */
-  public JReqJob(JobTitle _title)
+  JReqJob(JobTitle _title)
   {
     super(_title);
   }

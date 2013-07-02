@@ -1,11 +1,14 @@
 package com.ladders.oc.jobs;
 
+/**
+ * Creates a wrapper object for job title.
+ */
 public class JobTitle
 {
   private String title;
   
   /**
-   * Constructs a wrapper object for Job Title
+   * Constructor.
    * @param _title    a string that describes Job Title
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */

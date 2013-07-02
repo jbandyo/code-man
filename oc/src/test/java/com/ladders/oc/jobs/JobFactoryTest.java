@@ -10,8 +10,15 @@ public class JobFactoryTest
   @Test
   public void testCreateATSJob()
   {
+    ATSJob job = JobFactory.createATSJob(new JobTitle("Developer"));
+    assertNotNull(job);
+  }
+
+  @Test
+  public void testCreateJReqJob()
+  {
     JobTitle title = new JobTitle("Developer");
-    ATSJob job = JobFactory.createATSJob(title);
+    JReqJob job = JobFactory.createJReqJob(new JobTitle("Developer"));
     assertNotNull(job);
   }
 

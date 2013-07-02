@@ -1,12 +1,15 @@
 package com.ladders.oc.jobs;
 
+/**
+ * Represents a ATS Job.
+ */
 public class ATSJob extends Job
 {
   /**
-   * Constructs a ATS Job.
+   * Constructor.
    * @param _title    a JobTitle object
    */
-  public ATSJob(JobTitle _title)
+  ATSJob(JobTitle _title)
   {
     super(_title);
   }
