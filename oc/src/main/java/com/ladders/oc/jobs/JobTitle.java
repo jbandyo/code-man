@@ -25,9 +25,9 @@ public class JobTitle implements Displayable
   }
 
   // interface method implementation
-  public void display()
+  public String getDisplayText()
   {
-    DisplayDevice.getInstance().displayLine(title); 
+    return title;    
   }
 
 }

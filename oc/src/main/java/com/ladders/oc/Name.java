@@ -12,7 +12,7 @@ public class Name
    * @param _name    a string that describes the name
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */
-  public Name(String _name)
+  public Name(String _name) throws IllegalArgumentException
   {
     // validate
     if ((_name == null) || (_name.length() == 0))

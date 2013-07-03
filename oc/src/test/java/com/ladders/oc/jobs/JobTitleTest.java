@@ -4,14 +4,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.ladders.oc.display.View;
+
 public class JobTitleTest
 {
-
+  
   @Test
-  public void testJobTitleConstructor()
+  public void testConstructor()
   {
-    JobTitle title = new JobTitle("Developers");
+    JobTitle title = new JobTitle("Developer");
     assertNotNull("JobTitle constructor must create the object", title);
+    assertEquals("JobTitle must initialize the title correctly", title.getDisplayText(), "Developer");
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -21,16 +24,9 @@ public class JobTitleTest
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testJobTitleConstructorWithBlankArgument()
+  public void testConstructorWithBlankArgument()
   {
     JobTitle title = new JobTitle("");
   }
  
-  @Test
-  public void testDisplay()
-  {
-    JobTitle title = new JobTitle("Developer");
-    title.display();
-  }
-
 }

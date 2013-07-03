@@ -28,9 +28,10 @@ public class JobPosting implements Displayable
   }
 
   // interface method implementation
-  public void display()
+  public String getDisplayText()
   {
-    job.display();    
+    return job.getDisplayText();    
   }
+
 }
 

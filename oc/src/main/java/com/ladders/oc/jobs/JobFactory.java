@@ -11,8 +11,12 @@ public class JobFactory
    * @param   title    a JobTitle object
    * @return           a newly created ATS Job
    */
-  public static ATSJob createATSJob(JobTitle title)
+  public static ATSJob createATSJob(JobTitle title) throws IllegalArgumentException
   {
+    // validate
+    if (title == null)
+      throw new IllegalArgumentException();
+
     ATSJob job = new ATSJob(title);
     return job;
   }
@@ -22,8 +26,12 @@ public class JobFactory
    * @param   title    a JobTitle object
    * @return           a newly created jReq Job
    */
-  public static JReqJob createJReqJob(JobTitle title)
+  public static JReqJob createJReqJob(JobTitle title) throws IllegalArgumentException
   {
+    // validate
+    if (title == null)
+      throw new IllegalArgumentException();
+
     JReqJob job = new JReqJob(title);
     return job;
   }

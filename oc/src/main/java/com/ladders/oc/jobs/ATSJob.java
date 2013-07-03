@@ -9,7 +9,7 @@ public class ATSJob extends Job
    * Constructor.
    * @param _title    a JobTitle object
    */
-  ATSJob(JobTitle _title)
+  ATSJob(JobTitle _title) throws IllegalArgumentException
   {
     super(_title);
   }

@@ -77,13 +77,13 @@ class RecruiterPostings
    * @return list of postings
    * @throws IllegalArgumentException
    */
-  public List<JobPosting> listJobs(Recruiter recruiter) throws IllegalArgumentException
+  public JobPostings listJobs(Recruiter recruiter) throws IllegalArgumentException
   {
     // validate
     if (recruiter == null)
       throw new IllegalArgumentException();
 
-    List<JobPosting> jobList = new ArrayList<JobPosting>();
+    JobPostings jobList = new JobPostings();
     synchronized (postingList)
     {
       Iterator<RecPostTuple> iterator = postingList.iterator();
@@ -101,16 +101,14 @@ class RecruiterPostings
    * Returns all postings.
    * @return list of postings
    */
-  public List<JobPosting> listJobs()
+  public JobPostings listJobs()
   {
-    List<JobPosting> jobList = new ArrayList<JobPosting>();
+    JobPostings jobList = new JobPostings();
     synchronized (postingList)
     {
       Iterator<RecPostTuple> iterator = postingList.iterator();
       while (iterator.hasNext())
-      {
           jobList.add(iterator.next().posting);
-      }
     }
     return jobList;
   }

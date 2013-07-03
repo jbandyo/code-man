@@ -2,5 +2,5 @@ package com.ladders.oc.display;
 
 public interface Displayable
 {
-  void display();
+  String getDisplayText();
 }

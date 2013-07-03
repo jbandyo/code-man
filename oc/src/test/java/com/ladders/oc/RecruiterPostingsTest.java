@@ -1,6 +1,7 @@
 package com.ladders.oc;
 
 import static org.junit.Assert.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class RecruiterPostingsTest
   @Test
   public void testRecruiterPostingsTestInstance()
   {
-    assertNotNull(repo);
+    assertNotNull("getInstnace must return the object", repo);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -82,7 +83,7 @@ public class RecruiterPostingsTest
   @Test(expected = IllegalArgumentException.class)
   public void testListJobsWithNullArgument()
   {
-    List<JobPosting> joblist = repo.listJobs(null);
+    JobPostings joblist = repo.listJobs(null);
   }
 
   @Test
@@ -91,9 +92,13 @@ public class RecruiterPostingsTest
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    List<JobPosting> joblist = repo.listJobs();
+    JobPostings joblist = repo.listJobs();
     assertNotNull("listJobs must not return null", joblist);
-    assertEquals("listLobs with no input must return all jobs", joblist.size(), 3);
+    assertEquals("listLobs with no input must return all jobs", joblist.getCount(), 3);
+    List<String> titles = joblist.getDisplayTextList();
+    assertTrue("ListJobs must contain posted job", titles.contains("Developer"));
+    assertTrue("ListJobs must contain posted job", titles.contains("Architect"));
+    assertTrue("ListJobs must contain posted job", titles.contains("Programmer"));
   }
   
   @Test
@@ -102,9 +107,12 @@ public class RecruiterPostingsTest
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    List<JobPosting> joblist = repo.listJobs(recruiter1);
+    JobPostings joblist = repo.listJobs(recruiter1);
     assertNotNull("listJobs must not return null", joblist);
-    assertEquals("listLobs for a recruiter must return all jobs posted by the recruiter",joblist.size(), 2);
+    assertEquals("listLobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 2);
+    List<String> titles = joblist.getDisplayTextList();
+    assertTrue("ListJobs must contain posted job", titles.contains("Developer"));
+    assertTrue("ListJobs must contain posted job", titles.contains("Architect"));
   }
 
 }

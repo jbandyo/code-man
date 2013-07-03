@@ -9,7 +9,7 @@ public class JReqJob extends Job
    * Constructor.
    * @param _title    a JobTitle object
    */
-  JReqJob(JobTitle _title)
+  JReqJob(JobTitle _title) throws IllegalArgumentException
   {
     super(_title);
   }

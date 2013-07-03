@@ -2,7 +2,7 @@ package com.ladders.oc.jobs;
 
 import java.util.UUID;
 import com.ladders.oc.*;
-import com.ladders.oc.display.DisplayDevice;
+import com.ladders.oc.display.View;
 import com.ladders.oc.display.Displayable;
 
 /**
@@ -17,8 +17,12 @@ public abstract class Job implements Displayable
    * Base class constructor 
    * @param _title    a JobTitle object
    */
-  Job(JobTitle _title)
+  Job(JobTitle _title) throws IllegalArgumentException
   {
+    // validate
+    if (_title == null)
+      throw new IllegalArgumentException();
+
     title = _title;
     // create a unique ID
     uId = UUID.randomUUID();
@@ -42,9 +46,9 @@ public abstract class Job implements Displayable
   }
   
   // interface method implementation
-  public void display()
+  public String getDisplayText()
   {
-    title.display();    
+    return title.getDisplayText();    
   }
 
 }
