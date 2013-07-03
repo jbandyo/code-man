@@ -2,8 +2,7 @@ package com.ladders.oc;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,9 +17,23 @@ import com.ladders.oc.jobs.JobTitle;
 public class JobPostingsTest
 {
 
+  static JobPostings jobs = null;
+  static Date now = null;
+  static Job job1 = null;
+  static Job job2 = null;
+  static JobPosting posting1 = null;
+  static JobPosting posting2 = null;
+
   @BeforeClass
   public static void setUpBeforeClass() throws Exception
-  {}
+  {
+    jobs = new JobPostings();
+    Date now = new Date();
+    job1 = JobFactory.createATSJob(new JobTitle("Developer"));
+    Job job2 = JobFactory.createJReqJob(new JobTitle("Architect"));
+    posting1 = new JobPosting(job1, now);
+    posting2 = new JobPosting(job2, now);
+  }
 
   @AfterClass
   public static void tearDownAfterClass() throws Exception
@@ -32,12 +45,13 @@ public class JobPostingsTest
 
   @After
   public void tearDown() throws Exception
-  {}
+  {
+    jobs.deleteAll();
+  }
 
   @Test
-  public void testJobPostingsConstructor()
+  public void testConstructor()
   {
-    JobPostings jobs = new JobPostings();
     assertNotNull("JobPostings constructor must create the object", jobs);
     assertEquals("Newly constructed JobPostings instance should have zero size", jobs.getCount(), 0);
   }
@@ -45,21 +59,14 @@ public class JobPostingsTest
   @Test(expected = IllegalArgumentException.class)
   public void testAddWithNullArgument()
   {
-    JobPostings jobs = new JobPostings();
     jobs.add(null);
   }
 
   @Test
   public void testAdd()
   {
-    JobPostings jobs = new JobPostings();
-    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
-    Date now = new Date();
-    JobPosting posting = new JobPosting(job, now);
-    jobs.add(posting);
+    jobs.add(posting1);
     assertEquals("Posting count should go up by one after add", jobs.getCount(), 1); // assuming single-threaded testing
-    Job job2 = JobFactory.createJReqJob(new JobTitle("Architect"));
-    JobPosting posting2 = new JobPosting(job2, now);
     jobs.add(posting2);
     List<String> titles = jobs.getDisplayTextList();
     assertTrue("add must enter job posting correcty", titles.contains("Developer"));
@@ -68,4 +75,17 @@ public class JobPostingsTest
     assertEquals("Posting count should be zero after deleteAll", jobs.getCount(), 0);
   }
 
+  @Test
+  public void testIterator()
+  {
+    Iterator<JobPosting> iterator = jobs.getIterator();
+    iterator = jobs.getIterator();
+    assertFalse("Iterator should have zero items in an empty JobPostings", iterator.hasNext());      
+    jobs.add(posting1);
+    jobs.add(posting2);
+    iterator = jobs.getIterator();
+    assertEquals("Iterator should iterate in the same order as insertions", iterator.next(), posting1);
+    assertEquals("Iterator should iterate in the same order as insertions", iterator.next(), posting2);      
+  }
+  
 }

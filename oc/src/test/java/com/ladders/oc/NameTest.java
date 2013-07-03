@@ -8,20 +8,20 @@ public class NameTest
 {
 
   @Test
-  public void testNameConstructor()
+  public void testConstructor()
   {
     Name name = new Name("John");
     assertNotNull("Name constructor must create the object", name);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testNameConstructorWithNullArgument()
+  public void testConstructorWithNullArgument()
   {
     Name name = new Name(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testNameConstructorWithBlankArgument()
+  public void testConstructorWithBlankArgument()
   {
     Name name = new Name("");
   }

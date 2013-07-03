@@ -1,12 +1,11 @@
 package com.ladders.oc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import com.ladders.oc.display.*;
 
 /**
  * Wrapper class for a list of job postings.
- * Note: Not Threadsafe.
+ * Note: Not thread-safe.
  */
 public class JobPostings implements DisplayableCollection
 {
@@ -40,6 +39,11 @@ public class JobPostings implements DisplayableCollection
       texts.add(posting.getDisplayText());
     }
     return texts;
+  }
+
+  public Iterator<JobPosting> getIterator()
+  {
+    return jobList.iterator();
   }
 
 }

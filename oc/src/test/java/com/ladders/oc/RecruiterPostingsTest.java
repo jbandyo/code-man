@@ -55,9 +55,10 @@ public class RecruiterPostingsTest
   }
 
   @Test
-  public void testRecruiterPostingsTestInstance()
+  public void testInstance()
   {
     assertNotNull("getInstnace must return the object", repo);
+    assertEquals("Newly constructed RecruiterPostings instance should have zero size", repo.getNumberOfPostings(), 0);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -89,10 +90,12 @@ public class RecruiterPostingsTest
   @Test
   public void testListJobsAll()
   {
+    JobPostings joblist = repo.listJobs();
+    assertEquals("listLobs for a recruiter who did not post must return zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    JobPostings joblist = repo.listJobs();
+    joblist = repo.listJobs();
     assertNotNull("listJobs must not return null", joblist);
     assertEquals("listLobs with no input must return all jobs", joblist.getCount(), 3);
     List<String> titles = joblist.getDisplayTextList();
@@ -104,10 +107,12 @@ public class RecruiterPostingsTest
   @Test
   public void testListJobsByRecruiter()
   {
+    JobPostings joblist = repo.listJobs(recruiter1);
+    assertEquals("listLobs for a recruiter who did not post must be zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    JobPostings joblist = repo.listJobs(recruiter1);
+    joblist = repo.listJobs(recruiter1);
     assertNotNull("listJobs must not return null", joblist);
     assertEquals("listLobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 2);
     List<String> titles = joblist.getDisplayTextList();

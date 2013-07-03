@@ -11,14 +11,14 @@ public class RecruiterTest
 {
 
   @Test
-  public void testRecruiterConstructor()
+  public void testConstructor()
   {
     Recruiter recruiter = new Recruiter(new Name("John"));
     assertNotNull("Recruiter constructor must create the object", recruiter); 
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testRecruiterConstructorWithNullArgument()
+  public void testConstructorWithNullArgument()
   {
     Recruiter recruiter = new Recruiter(null);
   }

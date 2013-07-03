@@ -13,7 +13,7 @@ public class JobPostingTest
 {
 
   @Test
-  public void testJobPostingConstructor()
+  public void testConstructor()
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Date now = new Date();
@@ -23,7 +23,7 @@ public class JobPostingTest
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testJobPostingConstructorWithNullArgument()
+  public void testConstructorWithNullArgument()
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Date now = new Date();

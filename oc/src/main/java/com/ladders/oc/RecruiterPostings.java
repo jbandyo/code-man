@@ -6,6 +6,7 @@ import com.ladders.oc.jobs.*;
 
 /**
  * Manages job postings by recruiters.
+ * Note: This class is thread-safe;
  */
 class RecruiterPostings
 {
@@ -40,7 +41,7 @@ class RecruiterPostings
   }
 
   /**
-   * Adds a job posting to repository.
+   * Adds a job posting along with recruiter reference to repository.
    * @param recruiter  Recruiter instance
    * @param job        Job instance
    * @throws IllegalArgumentException
