@@ -20,12 +20,14 @@ Jobs
 
 TheLadders
 - view jobseeker who applied by day
+- get report by csv or html
+- report should have jobseeker, job, recruiter, app date
 - view aggregate #applications by job and by recruiter
 
 Display Rules 
 - display recruiter by name
 - display jobseeker by name
-- display job by title
+- display job by title and recruiter
 
 Misc Rules
 - more than one recruiter with same name
@@ -94,3 +96,18 @@ JobApplication
 JobApplicationCollection
 - getApplicationList(filter)
 - getApplicationCount(filter)
+
+posting = job|date
+recposting = recruiter|posting
+submissions = application|date
+cred = seeker|resume
+application = cred|posting
+
+mappings
+recruiter -> job posted
+seeker -> job saved
+seeker -> job applied
+recruiter posted job -> seeker filter by job
+recruiter posted job -> seeker filter by date
+recruiter posted job -> seeker filter by job & date
+date -> application report (seeker, job, recruiter. app date)
