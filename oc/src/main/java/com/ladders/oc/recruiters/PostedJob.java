@@ -1,6 +1,8 @@
 package com.ladders.oc.recruiters;
 
 import com.ladders.oc.*;
+import com.ladders.oc.jobs.*;
+import com.ladders.oc.display.Displayable;
 
 /**
  * Represents a single posted job consisting of recruiter and the posting details.
@@ -8,22 +10,41 @@ import com.ladders.oc.*;
 public class PostedJob
 {
 
-  private Pair<Recruiter, JobPosting> rpPair;
+  private Pair<Recruiter, Job> rjPair;
   
   public Recruiter getRecruiter()
   {
-    return rpPair.first;
+    return rjPair.first;
   }
   
-  public JobPosting getPosting()
+  public Job getPosting()
   {
-    return rpPair.second;
+    return rjPair.second;
   }
 
   public PostedJob(Recruiter recruiter,
-                   JobPosting posting)
+                   Job job)
   {
-    rpPair = new Pair(recruiter, posting);
+    rjPair = new Pair(recruiter, job);
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o == this)
+      return true;
+    if (!(o instanceof PostedJob))
+      return false;
+    PostedJob job = (PostedJob) o;
+    return (job.rjPair.first == rjPair.first && job.rjPair.second == rjPair.second);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int hcode = rjPair.first.hashCode() << 16;
+    hcode |= (rjPair.second.hashCode() & 0x0000FFFF);
+    return hcode;
   }
   
 }

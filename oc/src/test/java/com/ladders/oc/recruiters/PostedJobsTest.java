@@ -23,8 +23,6 @@ public class PostedJobsTest
   static Date now = null;
   static Job job1 = null;
   static Job job2 = null;
-  static JobPosting posting1 = null;
-  static JobPosting posting2 = null;
   static Recruiter recruiter1 = null;
   static Recruiter recruiter2 = null;
   static PostedJob postedJob1 = null;
@@ -34,15 +32,12 @@ public class PostedJobsTest
   public static void setUpBeforeClass() throws Exception
   {
     jobs = new PostedJobs();
-    Date now = new Date();
     job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     job2 = JobFactory.createJReqJob(new JobTitle("Architect"));
-    posting1 = new JobPosting(job1, now);
-    posting2 = new JobPosting(job2, now);
     recruiter1 = new Recruiter(new Name("John"));
     recruiter2 = new Recruiter(new Name("Henry"));
-    postedJob1 = new PostedJob(recruiter1, posting1);
-    postedJob2 = new PostedJob(recruiter2, posting2);
+    postedJob1 = new PostedJob(recruiter1, job1);
+    postedJob2 = new PostedJob(recruiter2, job2);
   }
 
   @AfterClass
@@ -77,10 +72,6 @@ public class PostedJobsTest
   {
     jobs.add(postedJob1);
     assertEquals("Job count should go up by one after add", jobs.getCount(), 1); // assuming single-threaded testing
-    //jobs.add(postedJob2);
-    //List<String> titles = jobs.getDisplayTextList();
-    //assertTrue("add must enter job posting correcty", titles.contains("Developer"));
-    //assertTrue("add must enter job posting correcty", titles.contains("Architect"));
     jobs.deleteAll();
     assertEquals("Job count should be zero after deleteAll", jobs.getCount(), 0);
   }

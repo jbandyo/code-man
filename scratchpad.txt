@@ -98,16 +98,20 @@ JobApplicationCollection
 - getApplicationCount(filter)
 
 posting = job|date
-recposting = recruiter|posting
+postedjob = recruiter|posting
 submissions = application|date
 cred = seeker|resume
 application = cred|posting
 
 mappings
 recruiter -> job posted
-seeker -> job saved
+seeker -> job saved (posted job)
 seeker -> job applied
 recruiter posted job -> seeker filter by job
 recruiter posted job -> seeker filter by date
 recruiter posted job -> seeker filter by job & date
 date -> application report (seeker, job, recruiter. app date)
+
+data struc
+- list of posted job
+- 

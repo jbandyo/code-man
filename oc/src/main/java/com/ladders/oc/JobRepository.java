@@ -8,14 +8,14 @@ import com.ladders.oc.recruiters.*;
  * Manages job postings by recruiters.
  * Note: This class is thread-safe;
  */
-class JobRepository
+public class JobRepository
 {
 
-  private List<PostedJob>  postedJobList = null;
+  private Set<PostedJob> postedJobSet = null;
   
   private JobRepository() 
   {
-    postedJobList = Collections.synchronizedList(new ArrayList<PostedJob>());  
+    postedJobSet = Collections.synchronizedSet(new HashSet<PostedJob>());  
   }
 
   // singleton pattern implementation
@@ -41,41 +41,38 @@ class JobRepository
     if ((recruiter == null) || (job == null))
       throw new IllegalArgumentException();
 
-    // create posting with posting time
-    Date now = new Date();
-    JobPosting posting = new JobPosting(job, now);
-
     // add posting to repository
-    PostedJob rpost = new PostedJob(recruiter, posting);
-    postedJobList.add(rpost);
+    PostedJob post = new PostedJob(recruiter, job);
+    if (!postedJobSet.add(post))
+      throw new IllegalArgumentException();      
   }
   
   public int getNumberOfPostings()
   {
-    return postedJobList.size();
+    return postedJobSet.size();
   }
 
   public void deleteAllPostings()
   {
-    postedJobList.clear();
+    postedJobSet.clear();
   }
 
   /**
    * Returns postings entered by a recruiter.
    * @param  recruiter  Recruiter instance
-   * @return list of postings
+   * @return list of job postings
    * @throws IllegalArgumentException
    */
-  public JobPostings listJobs(Recruiter recruiter) throws IllegalArgumentException
+  public JobPostings getJobs(Recruiter recruiter) throws IllegalArgumentException
   {
     // validate
     if (recruiter == null)
       throw new IllegalArgumentException();
 
     JobPostings postings = new JobPostings();
-    synchronized (postedJobList)
+    synchronized (postedJobSet)
     {
-      Iterator<PostedJob> iterator = postedJobList.iterator();
+      Iterator<PostedJob> iterator = postedJobSet.iterator();
       while (iterator.hasNext())
       {
         PostedJob pair = iterator.next();
@@ -90,12 +87,12 @@ class JobRepository
    * Returns all posted jobs.
    * @return list of postings
    */
-  public PostedJobs listJobs()
+  public PostedJobs getJobs()
   {
     PostedJobs jobList = new PostedJobs();
-    synchronized (postedJobList)
+    synchronized (postedJobSet)
     {
-      Iterator<PostedJob> iterator = postedJobList.iterator();
+      Iterator<PostedJob> iterator = postedJobSet.iterator();
       while (iterator.hasNext())
         jobList.add(iterator.next());
     }

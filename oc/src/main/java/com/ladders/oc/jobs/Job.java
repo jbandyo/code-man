@@ -10,8 +10,8 @@ import com.ladders.oc.display.Displayable;
  */
 public abstract class Job implements Displayable
 {
-  protected UUID uId;
-  protected JobTitle title;
+  protected final UUID uId;
+  protected final JobTitle title;
   
   /**
    * Base class constructor 

@@ -38,13 +38,11 @@ public class PostedJobTest
   public void testConstructor()
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
-    Date now = new Date();
-    JobPosting posting = new JobPosting(job, now);
     Recruiter recruiter = new Recruiter(new Name("John"));
-    PostedJob postedJob = new PostedJob(recruiter, posting);
+    PostedJob postedJob = new PostedJob(recruiter, job);
     assertNotNull("PostedJob constructor must create the object", postedJob);
     assertEquals("PostedJob must preserve the recruiter", postedJob.getRecruiter(), recruiter); 
-    assertEquals("PostedJob must preserve the job posting", postedJob.getPosting(), posting); 
+    assertEquals("PostedJob must preserve the job posting", postedJob.getPosting(), job); 
   }
 
 }

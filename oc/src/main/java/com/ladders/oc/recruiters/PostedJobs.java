@@ -9,7 +9,7 @@ import java.util.*;
 public class PostedJobs
 {
 
-  List<PostedJob> jobList = new ArrayList<PostedJob>();
+  private List<PostedJob> jobList = new ArrayList<PostedJob>();
 
   public int getCount()
   {

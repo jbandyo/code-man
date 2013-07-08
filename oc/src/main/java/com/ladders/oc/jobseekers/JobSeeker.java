@@ -9,8 +9,8 @@ import com.ladders.oc.Name;
  */
 public class JobSeeker
 {
-  UUID uId;
-  Name name;
+  final UUID uId;
+  final Name name;
 
   /**
    * Constructor.

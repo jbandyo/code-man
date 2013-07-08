@@ -3,14 +3,15 @@ package com.ladders.oc.recruiters;
 import java.util.UUID;
 
 import com.ladders.oc.Name;
+import com.ladders.oc.display.Displayable;
 
 /**
  * Represents a Recruiter.
  */
-public class Recruiter
+public class Recruiter implements Displayable
 {
-  UUID uId;
-  Name name;
+  private final UUID uId;
+  private final Name name;
 
   /**
    * Constructor.
@@ -41,6 +42,12 @@ public class Recruiter
   public int hashCode()
   {
     return (int)(uId.getLeastSignificantBits());
+  }
+
+  // interface method implementation
+  public String getDisplayText()
+  {
+    return name.getDisplayText();    
   }
 
 }

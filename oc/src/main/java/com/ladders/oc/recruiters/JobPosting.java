@@ -7,11 +7,12 @@ import com.ladders.oc.jobs.Job;
 
 /**
  * Represents a single job posting consisting of the job and posting time.
+ * This class is not required at this time
  */
 public class JobPosting implements Displayable
 {
-  private Job job;
-  private Date postTime;
+  private final Job job;
+  private final Date postTime;
   
   /**
    * @param _job

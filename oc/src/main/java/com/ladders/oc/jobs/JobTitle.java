@@ -7,7 +7,7 @@ import com.ladders.oc.display.*;
  */
 public class JobTitle implements Displayable
 {
-  private String title;
+  private final String title;
   
   /**
    * Constructor.

@@ -1,11 +1,13 @@
 package com.ladders.oc;
 
+import com.ladders.oc.display.Displayable;
+
 /**
  * Creates a wrapper object for a name.
  */
-public class Name
+public class Name implements Displayable
 {
-  private String name;
+  private final String name;
   
   /**
    * Constructor
@@ -19,6 +21,12 @@ public class Name
       throw new IllegalArgumentException();
     // check for max length ???
     name = _name;
+  }
+  
+  // interface method implementation
+  public String getDisplayText()
+  {
+    return name;    
   }
 
 }
