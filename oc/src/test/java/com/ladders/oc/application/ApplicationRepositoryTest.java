@@ -2,18 +2,18 @@ package com.ladders.oc.application;
 
 import static org.junit.Assert.*;
 
+import java.util.*;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ladders.oc.Name;
-import com.ladders.oc.jobs.Job;
-import com.ladders.oc.jobs.JobFactory;
-import com.ladders.oc.jobs.JobTitle;
-import com.ladders.oc.jobseekers.JobSeeker;
-import com.ladders.oc.recruiters.Recruiter;
+import com.ladders.oc.*;
+import com.ladders.oc.jobs.*;
+import com.ladders.oc.jobseekers.*;
+import com.ladders.oc.recruiters.*;
 
 public class ApplicationRepositoryTest
 {
@@ -53,7 +53,7 @@ public class ApplicationRepositoryTest
   @Test
   public void testInstance()
   {
-    assertNotNull("getInstnace must return the object", repo);
+    assertNotNull("GetInstnace must return the object", repo);
     assertEquals("Newly constructed JobRepository instance should have zero size", repo.getNumberOfApplications(), 0);
   }
   
@@ -86,5 +86,26 @@ public class ApplicationRepositoryTest
     assertEquals("Application count should be zero after deleteAllApplications", repo.getNumberOfApplications(), 0);
   }
 
-
+  @Test
+  public void testCreateFilter()
+  {
+    ApplicationRepository.Filter filter = repo.createFilter();
+    assertNotNull("GetInstnace must return the object", filter);
+    Date date1 = new Date();
+    filter.setJob(job1).setRecruiter(recruiter1).setJobSeeker(seeker1).setDate(date1);
+    assertEquals("Filter field should be set correctly with set methods", filter.job, job1);
+    assertEquals("Filter field should be set correctly with set methods", filter.recruiter, recruiter1);
+    assertEquals("Filter field should be set correctly with set methods", filter.seeker, seeker1);
+    assertEquals("Filter field should be set correctly with set methods", filter.date, date1);    
+  }
+  
+  @Test
+  public void testGetApplications()
+  {
+    ApplicationRepository.Filter filter = repo.createFilter();
+    assertNotNull("GetInstnace must return the object", filter);
+    Date date1 = new Date();
+    filter.setJob(job1).setRecruiter(recruiter1).setJobSeeker(seeker1).setDate(date1);
+    repo.getApplications(filter);
+  }
 }

@@ -2,10 +2,8 @@ package com.ladders.oc.application;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.util.*;
+
 import org.junit.Test;
 
 import com.ladders.oc.*;
@@ -47,7 +45,28 @@ public class ApplicationTest
     assertNotEquals("Different Job and JobSeeker means different Application", app1, app2);
   }
 
-
+  @Test
+  public void testFields()
+  {
+    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
+    Recruiter recruiter = new Recruiter(new Name("John"));
+    JobSeeker seeker = new JobSeeker(new Name("David"));
+    Application app = new Application(job, recruiter, seeker);
+    assertTrue("Application field test should work correctly", app.containsJob(job));
+    assertTrue("Application field test should work correctly", app.containsRecruiter(recruiter));
+    assertTrue("Application field test should work correctly", app.containsJobSeeker(seeker));
+    Date now = new Date();
+    boolean result = app.containsDate(now);
+    if (!result)
+    {
+      // take care of date rollover
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(now);
+      calendar.add(Calendar.DATE, -1); // prev day
+      result = app.containsDate(now);
+    }
+    assertTrue("Application field test should work correctly", app.containsDate(now));
+  }
 }
 
 
