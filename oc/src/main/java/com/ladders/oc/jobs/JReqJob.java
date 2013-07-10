@@ -14,4 +14,9 @@ public class JReqJob extends Job
     super(_title);
   }
 
+  public boolean RequiresResume()
+  {
+    return true;
+  }
+
 }

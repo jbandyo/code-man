@@ -11,7 +11,7 @@ import com.ladders.oc.recruiters.*;
 public class JobRepository
 {
 
-  private Set<PostedJob> postedJobSet = null;
+  private final Set<PostedJob> postedJobSet;
   
   private JobRepository() 
   {
@@ -32,10 +32,11 @@ public class JobRepository
    * Adds a job posting along with recruiter reference to repository.
    * @param recruiter  Recruiter instance
    * @param job        Job instance
+   * @return true if the job was not posted before
    * @throws IllegalArgumentException
    */
-  public void postJob(Recruiter recruiter,
-                      Job job) throws IllegalArgumentException
+  public boolean postJob(Recruiter recruiter,
+                      Job job)
   {
     // validate
     if ((recruiter == null) || (job == null))
@@ -43,8 +44,7 @@ public class JobRepository
 
     // add posting to repository
     PostedJob post = new PostedJob(recruiter, job);
-    if (!postedJobSet.add(post))
-      throw new IllegalArgumentException();      
+    return postedJobSet.add(post);
   }
   
   public int getNumberOfPostings()
@@ -63,13 +63,13 @@ public class JobRepository
    * @return list of job postings
    * @throws IllegalArgumentException
    */
-  public JobPostings getJobs(Recruiter recruiter) throws IllegalArgumentException
+  public Jobs getRecruiterJobs(Recruiter recruiter)
   {
     // validate
     if (recruiter == null)
       throw new IllegalArgumentException();
 
-    JobPostings postings = new JobPostings();
+    Jobs postings = new Jobs();
     synchronized (postedJobSet)
     {
       Iterator<PostedJob> iterator = postedJobSet.iterator();
@@ -87,7 +87,7 @@ public class JobRepository
    * Returns all posted jobs.
    * @return list of postings
    */
-  public PostedJobs getJobs()
+  public PostedJobs getPostedJobs()
   {
     PostedJobs jobList = new PostedJobs();
     synchronized (postedJobSet)

@@ -28,7 +28,7 @@ public class RecruiterInterfaceTest
     repo.postJob(recruiter, job1);
     repo.postJob(recruiter, job2);
     repo.postJob(recruiter, job3);
-    JobPostings jobs = repo.getJobs(recruiter);
+    Jobs jobs = repo.getRecruiterJobs(recruiter);
     View view = View.getInstance();
     System.out.print("Jobs posted by: ");
     view.displayObjectLF(recruiter);

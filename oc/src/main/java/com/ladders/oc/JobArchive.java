@@ -7,7 +7,7 @@ import com.ladders.oc.recruiters.*;
  * Keeps job lists specific to a key object..
  * Note: Not thread-safe.
  */
-class JobArchive<T>
+public class JobArchive<T>
 {
   private Map<T, PostedJobs> jobLists = new HashMap<T, PostedJobs>();
     
@@ -15,9 +15,10 @@ class JobArchive<T>
    * Saves job posting along with an object reference.
    * @param user   key object.
    * @param job    Job instance.
+   * @return true if the job was not saved before
    * @throws IllegalArgumentException
    */
-  public void addJob(T user,
+  public boolean addJob(T user,
                       PostedJob job) throws IllegalArgumentException
   {
     // validate
@@ -33,14 +34,14 @@ class JobArchive<T>
     }
     
     // add posting to seeker's list
-    jobs.add(job);
+    return jobs.add(job);
   }
 
   /**
    * Retrieves job postings for a key object.
    * @param user   key object.
    */
-  public PostedJobs getJobList(T user)
+  public PostedJobs getJobs(T user)
   {
     return jobLists.get(user);
   }

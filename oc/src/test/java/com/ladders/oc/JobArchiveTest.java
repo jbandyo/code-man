@@ -60,7 +60,7 @@ public class JobArchiveTest
   @Test
   public void testInstance()
   {
-    assertNotNull("getInstnace must return the object", savedList);
+    assertNotNull("GetInstnace must return the object", savedList);
     assertEquals("Newly constructed JobSeekerSavedLists instance should have zero size", savedList.getNumberOfLists(), 0);
   }
 
@@ -75,8 +75,17 @@ public class JobArchiveTest
   @Test
   public void testAddJob()
   {
-    savedList.addJob(seeker1, postedJob1);
-    assertEquals("List count should go up by one after saveJob", savedList.getNumberOfLists(), 1); // assuming single-threaded testing
+    boolean result;
+    result = savedList.addJob(seeker1, postedJob1);
+    assertTrue("AddJob must return true when successful", result);
+    assertEquals("List count should go up by one after a new jobseeker's addJob", savedList.getNumberOfLists(), 1); // assuming single-threaded testing
+    // same job by same jobseeker - can not be saved again
+    result = savedList.addJob(seeker1, postedJob1);
+    assertFalse("Same job can not be saved more than once", result);
+    // different jobseeker can save the same job
+    result = savedList.addJob(seeker2, postedJob1);
+    assertTrue("AddJob must return true when successful", result);
+   
     savedList.deleteAllLists();
     assertEquals("List count should be zero after deleteAllLists", savedList.getNumberOfLists(), 0);
   }
@@ -84,13 +93,19 @@ public class JobArchiveTest
   @Test
   public void testGetJobList()
   {
-    PostedJobs jobs = savedList.getJobList(seeker1);
-    assertEquals("List count for a job seeker who did not save jobs must be zero", savedList.getNumberOfLists(), 0);    
+    PostedJobs jobs = savedList.getJobs(seeker1);
+    assertNull("GetJobs must return null for a job seeker who did not save job", jobs);    
     savedList.addJob(seeker1, postedJob1);
     savedList.addJob(seeker1, postedJob2);
     savedList.addJob(seeker2, postedJob3);
-    jobs = savedList.getJobList(seeker1);
-    assertEquals("getJobList for a job seeker must return all jobs saved by the job seeker", jobs.getCount(), 2);
+    jobs = savedList.getJobs(seeker1);
+    assertNotNull("GetJobs must not return null when the repository is not empty", jobs);
+    assertEquals("GetJobs for a job seeker must return all jobs saved by the job seeker", jobs.getCount(), 2);
+    assertTrue("GetJobs must contain posted job", jobs.contains(postedJob1));
+    assertTrue("GetJobs must contain posted job", jobs.contains(postedJob2));
+    jobs = savedList.getJobs(seeker2);
+    assertEquals("GetJobs for a job seeker must return all jobs saved by the job seeker", jobs.getCount(), 1);
+    assertTrue("GetJobs must contain posted job", jobs.contains(postedJob3));
   }
   
 }

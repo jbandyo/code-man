@@ -27,22 +27,26 @@ public abstract class Job implements Displayable
     // create a unique ID
     uId = UUID.randomUUID();
   }
-  
+
+  public abstract boolean RequiresResume();
+
   @Override
   public boolean equals(Object o)
   {
     if (o == this)
       return true;
+    if (o == null)
+      return false;
     if (o.getClass() != this.getClass())
       return false;
     Job job = (Job) o;
-    return job.uId == uId;
+    return job.uId.equals(uId);
   }
   
   @Override
   public int hashCode()
   {
-    return (int)(uId.getLeastSignificantBits());
+    return (int)(uId.hashCode());
   }
   
   // interface method implementation

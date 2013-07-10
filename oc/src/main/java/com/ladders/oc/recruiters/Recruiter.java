@@ -35,13 +35,13 @@ public class Recruiter implements Displayable
     if (!(o instanceof Recruiter))
       return false;
     Recruiter rec = (Recruiter) o;
-    return rec.uId == uId;
+    return rec.uId.equals(uId);
   }
   
   @Override
   public int hashCode()
   {
-    return (int)(uId.getLeastSignificantBits());
+    return (int)(uId.hashCode());
   }
 
   // interface method implementation

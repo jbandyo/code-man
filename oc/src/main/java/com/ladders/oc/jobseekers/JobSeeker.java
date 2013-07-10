@@ -3,14 +3,15 @@ package com.ladders.oc.jobseekers;
 import java.util.UUID;
 
 import com.ladders.oc.Name;
+import com.ladders.oc.display.Displayable;
 
 /**
  * Represents a Job Seeker.
  */
-public class JobSeeker
+public class JobSeeker implements Displayable
 {
-  final UUID uId;
-  final Name name;
+  private final UUID uId;
+  private final Name name;
 
   /**
    * Constructor.
@@ -34,13 +35,19 @@ public class JobSeeker
     if (!(o instanceof JobSeeker))
       return false;
     JobSeeker user = (JobSeeker) o;
-    return user.uId == uId;
+    return user.uId.equals(uId);
   }
   
   @Override
   public int hashCode()
   {
-    return (int)(uId.getLeastSignificantBits());
+    return (int)(uId.hashCode());
+  }
+
+  // interface method implementation
+  public String getDisplayText()
+  {
+    return name.getDisplayText();    
   }
 
 }

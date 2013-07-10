@@ -9,7 +9,6 @@ import com.ladders.oc.display.Displayable;
  */
 public class PostedJob
 {
-
   private Pair<Recruiter, Job> rjPair;
   
   public Recruiter getRecruiter()
@@ -36,15 +35,13 @@ public class PostedJob
     if (!(o instanceof PostedJob))
       return false;
     PostedJob job = (PostedJob) o;
-    return (job.rjPair.first == rjPair.first && job.rjPair.second == rjPair.second);
+    return (job.rjPair.second.equals(rjPair.second));   // compare only job part
   }
 
   @Override
   public int hashCode()
   {
-    int hcode = rjPair.first.hashCode() << 16;
-    hcode |= (rjPair.second.hashCode() & 0x0000FFFF);
-    return hcode;
+    return rjPair.second.hashCode();
   }
   
 }

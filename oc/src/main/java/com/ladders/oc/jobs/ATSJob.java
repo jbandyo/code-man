@@ -14,4 +14,9 @@ public class ATSJob extends Job
     super(_title);
   }
 
+  public boolean RequiresResume()
+  {
+    return false;
+  }
+
 }

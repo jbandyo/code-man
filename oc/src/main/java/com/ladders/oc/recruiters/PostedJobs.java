@@ -3,36 +3,41 @@ package com.ladders.oc.recruiters;
 import java.util.*;
 
 /**
- * Wrapper class for a list of posted jobs (recruiter and posting details information).
+ * Wrapper class for a set of posted jobs (recruiter and posting details information).
  * Note: Not thread-safe.
  */
 public class PostedJobs
 {
 
-  private List<PostedJob> jobList = new ArrayList<PostedJob>();
+  private Set<PostedJob> jobSet = new LinkedHashSet<PostedJob>();
 
   public int getCount()
   {
-    return jobList.size();
+    return jobSet.size();
   }
 
-  public void add(PostedJob job) throws IllegalArgumentException
+  public boolean add(PostedJob job) throws IllegalArgumentException
   {
     // validate
     if (job == null)
       throw new IllegalArgumentException();
     
-    jobList.add(job);   
+    return jobSet.add(job);   
   }
 
   public void deleteAll()
   {
-    jobList.clear();
+    jobSet.clear();
   }
 
   public Iterator<PostedJob> getIterator()
   {
-    return jobList.iterator();
+    return jobSet.iterator();
+  }
+  
+  public boolean contains(PostedJob job)
+  {
+    return jobSet.contains(job);
   }
 
 }

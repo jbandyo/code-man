@@ -45,4 +45,20 @@ public class PostedJobTest
     assertEquals("PostedJob must preserve the job posting", postedJob.getPosting(), job); 
   }
 
+  @Test
+  public void testEquality()
+  {
+    Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
+    Recruiter recruiter1 = new Recruiter(new Name("John"));
+    Job job2 = JobFactory.createATSJob(new JobTitle("Programmer"));
+    Recruiter recruiter2 = new Recruiter(new Name("Henry"));
+    PostedJob postedJob1 = new PostedJob(recruiter1, job1);
+    assertEquals("PostedJob must be equal to itself", postedJob1, postedJob1); 
+    PostedJob postedJob2 = new PostedJob(recruiter1, job1);
+    assertEquals("Same Job and same Recruiter means same PostedJob", postedJob1, postedJob2);
+    postedJob2 = new PostedJob(recruiter1, job2);
+    assertNotEquals("Different Job means different PostedJob", postedJob1, postedJob2);
+    postedJob2 = new PostedJob(recruiter2, job1);
+    assertEquals("Same Job means same PostedJob", postedJob1, postedJob2);  
+  }
 }

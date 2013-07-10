@@ -73,66 +73,66 @@ public class JobRepositoryTest
   @Test
   public void testPostJob()
   {
-    int prevCount = repo.getNumberOfPostings();
-    repo.postJob(recruiter1, job1);
-    int curCount = repo.getNumberOfPostings();
-    assertEquals("Posting count should go up by one after postJob", prevCount+1, curCount); // assuming single-threaded testing
+    boolean result;
+    result = repo.postJob(recruiter1, job1);
+    assertTrue("PostJob must return true when successful", result);
+    assertEquals("Posting count should go up by one after a new recruiter posting", repo.getNumberOfPostings(), 1); // assuming single-threaded testing
     // job with same title can be posted again
     Job job11 = JobFactory.createATSJob(new JobTitle("Developer"));
     repo.postJob(recruiter1, job11);
     // same job by same recruiter - not allowed
-    boolean gotException = false;
-    try
-    {
-      repo.postJob(recruiter1, job1);
-    }
-    catch (IllegalArgumentException ex)
-    {
-      gotException = true;
-    }
-    assertTrue("Same job can not be posted more than once", gotException);
-    
-    // different recruiter, same job is OK ????
-    repo.postJob(recruiter2, job11);
+    result = repo.postJob(recruiter1, job1);
+    assertFalse("Same job can not be posted more than once", result);
+    // different recruiter, same job is not allowed also
+    result = repo.postJob(recruiter2, job11);
+    assertFalse("PostJob must return true when successful", result);
     
     repo.deleteAllPostings();
-    curCount = repo.getNumberOfPostings();
-    assertEquals("Posting count should be zero after deleteAllPostings", curCount, 0);
+    assertEquals("Posting count should be zero after deleteAllPostings", repo.getNumberOfPostings(), 0);
   }
-  
+    
   @Test(expected = IllegalArgumentException.class)
   public void testListJobsWithNullArgument()
   {
-    JobPostings joblist = repo.getJobs(null);
+    Jobs joblist = repo.getRecruiterJobs(null);
   }
 
   @Test
-  public void testGetJobsAll()
+  public void testGetPostedJobs()
   {
-    PostedJobs joblist = repo.getJobs();
+    PostedJobs joblist = repo.getPostedJobs();
     assertEquals("GetJobs for a recruiter who did not post must return zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    joblist = repo.getJobs();
+    joblist = repo.getPostedJobs();
     assertNotNull("GetJobs must not return null", joblist);
-    assertEquals("GetJobs with no input must return all jobs", joblist.getCount(), 3);
+    assertEquals("GetJobsAll must return all jobs", joblist.getCount(), 3);
+    PostedJob post = new PostedJob(recruiter1, job1);
+    assertTrue("GetJobsAll must contain posted job", joblist.contains(post));
+    post = new PostedJob(recruiter1, job2);
+    assertTrue("GetJobsAll must contain posted job", joblist.contains(post));
+    post = new PostedJob(recruiter2, job3);
+    assertTrue("GetJobsAll must contain posted job", joblist.contains(post));
   }
   
   @Test
   public void testGetJobsByRecruiter()
   {
-    JobPostings joblist = repo.getJobs(recruiter1);
+    Jobs joblist = repo.getRecruiterJobs(recruiter1);
     assertEquals("GetJobs for a recruiter who did not post must be zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    joblist = repo.getJobs(recruiter1);
+    joblist = repo.getRecruiterJobs(recruiter1);
     assertNotNull("GetJobs must not return null when the repository is not empty", joblist);
     assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 2);
-    List<String> titles = joblist.getDisplayTextList();
-    assertTrue("GetJobs must contain posted job", titles.contains("Developer"));
-    assertTrue("GetJobs must contain posted job", titles.contains("Architect"));
+    assertTrue("GetJobs must contain posted job", joblist.contains(job1));
+    assertTrue("GetJobs must contain posted job", joblist.contains(job1));
+    joblist = repo.getRecruiterJobs(recruiter2);
+    assertNotNull("GetJobs must not return null when the repository is not empty", joblist);
+    assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 1);
+    assertTrue("GetJobs must enter job posting correcty", joblist.contains(job3));
   }
 
 }
