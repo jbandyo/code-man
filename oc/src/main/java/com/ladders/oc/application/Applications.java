@@ -39,7 +39,7 @@ public class Applications
    * Returns count of applications in the set.
    * @return count.
    */
-  int getCount()
+  public int getCount()
   {
     return appSet.size();
   }

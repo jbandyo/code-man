@@ -1,7 +1,5 @@
 package com.ladders.oc.display;
 
-import java.util.EnumSet;
-
 import com.ladders.oc.application.Application;
 
 public interface DisplayHandler
@@ -11,5 +9,6 @@ public interface DisplayHandler
   void displayList(DisplayableCollection col);
   void displayObjectLF(DisplayableObject obj);
   void displayJobSeekerJob(Application app);
-  void displayRecruiterInfoByDate(Application app);
+  void reportByCSVItem(Application app);
+  void reportByHtmlItem(Application app);
 }

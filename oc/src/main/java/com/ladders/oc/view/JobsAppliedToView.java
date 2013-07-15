@@ -1,9 +1,7 @@
 package com.ladders.oc.view;
 
 import java.util.Date;
-import java.util.EnumSet;
 
-import com.ladders.oc.application.*;
 import com.ladders.oc.display.ApplicationDisplayer;
 import com.ladders.oc.jobs.Job;
 import com.ladders.oc.jobseekers.JobSeeker;
