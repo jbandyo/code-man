@@ -2,6 +2,9 @@ package com.ladders.oc.application;
 
 import java.util.*;
 
+/**
+ * Helper class to compare two dates using day part only.
+ */
 public class AppDateComparator
 {
   private AppDateComparator() {}

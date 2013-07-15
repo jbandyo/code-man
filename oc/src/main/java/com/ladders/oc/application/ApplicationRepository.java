@@ -2,11 +2,14 @@ package com.ladders.oc.application;
 
 import java.util.*;
 
-import com.ladders.oc.application.ApplicationRepository.Filter;
 import com.ladders.oc.jobs.*;
 import com.ladders.oc.jobseekers.*;
 import com.ladders.oc.recruiters.*;
 
+/**
+ * Maintains job application data.
+ * Note: This class is thread-safe.
+ */
 public class ApplicationRepository
 {
   private final Set<Application> appSet;
@@ -31,25 +34,29 @@ public class ApplicationRepository
    * @param  app    a valid application
    * @return true if the application was not added before
    */
-  public boolean addApplication(Application app)
+  boolean addApplication(Application app)
   {
-    if (app == null)
-      throw new IllegalArgumentException();
+    assert (app != null);
+
     return appSet.add(app);
   }
 
-  public int getNumberOfApplications()
+  int getNumberOfApplications()
   {
     return appSet.size();
   }
 
-  public void deleteAllApplications()
+  void deleteAllApplications()
   {
     appSet.clear();
   }
 
-  public void getApplications(Filter filter)
+  public Applications getApplications(Filter _filter)
   {
+    Filter filter = _filter;
+    if  (filter == null)
+      filter = new Filter(null, null, null, null);
+    
     Applications apps = new Applications();
     synchronized (appSet)
     {
@@ -57,58 +64,45 @@ public class ApplicationRepository
       while (iterator.hasNext())
       {
         Application app = iterator.next();
-        if ((filter.job != null) && (!app.containsJob(filter.job)))
+        if (!filter.pass(app))
           continue;
-        if ((filter.recruiter != null) && (!app.containsRecruiter(filter.recruiter)))
-          continue;
-        if ((filter.seeker != null) && (!app.containsJobSeeker(filter.seeker)))
-          continue;
-        if ((filter.job != null) && (!app.containsJob(filter.job)))
-          continue;
+        apps.add(app);
       }
+      return apps;
     }
-
-    
   }
 
-  public Filter createFilter()
+  public Filter createFilter(Job _job, Recruiter _recruiter, JobSeeker _seeker, Date _date)
   {
-    return new Filter();
+    return new Filter(_job, _recruiter, _seeker, _date);
   }
   
   public class Filter
   {
-    Job job = null;
-    Recruiter recruiter = null;
-    JobSeeker seeker = null;
-    Date date = null;
+    final Job job;
+    final Recruiter recruiter;
+    final JobSeeker seeker;
+    final Date date;
     
-    private Filter() 
+    private Filter(Job _job, Recruiter _recruiter, JobSeeker _seeker, Date _date) 
     {      
-    }
-    
-    public Filter setJob(Job _job)
-    {
       job = _job;
-      return this;
-    }
-
-    public Filter setRecruiter(Recruiter _recruiter)
-    {
       recruiter = _recruiter;
-      return this;
-    }
-
-    public Filter setJobSeeker(JobSeeker _seeker)
-    {
       seeker = _seeker;
-      return this;
+      date = _date;
     }
     
-    public Filter setDate(Date _date)
+    boolean pass(Application app)
     {
-      date = _date;
-      return null;
+      if ((job != null) && (!app.containsJob(job)))
+        return false;
+      if ((recruiter != null) && (!app.containsRecruiter(recruiter)))
+        return false;
+      if ((seeker != null) && (!app.containsJobSeeker(seeker)))
+        return false;;
+      if ((job != null) && (!app.containsJob(job)))
+        return false;
+      return true;
     }
   }
  

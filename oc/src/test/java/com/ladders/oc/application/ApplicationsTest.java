@@ -2,6 +2,10 @@ package com.ladders.oc.application;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,11 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ladders.oc.Name;
-import com.ladders.oc.jobs.Job;
-import com.ladders.oc.jobs.JobFactory;
-import com.ladders.oc.jobs.JobTitle;
-import com.ladders.oc.jobseekers.JobSeeker;
-import com.ladders.oc.recruiters.Recruiter;
+import com.ladders.oc.jobs.*;
+import com.ladders.oc.jobseekers.*;
+import com.ladders.oc.recruiters.*;
 
 public class ApplicationsTest
 {
@@ -24,7 +26,8 @@ public class ApplicationsTest
   static Job job1 = null;
   static Job job2 = null;
   static Application app1 = null;
-
+  static Application app2 = null;
+  static Application app3 = null;
   static Applications apps = null;
   
   @BeforeClass
@@ -49,7 +52,9 @@ public class ApplicationsTest
 
   @After
   public void tearDown() throws Exception
-  {}
+  {
+    apps.deleteAll();
+  }
 
   @Test
   public void testConstructor()
@@ -74,5 +79,26 @@ public class ApplicationsTest
     assertEquals("Application count should be zero after deleteAll", apps.getCount(), 0);
   }
 
+  @Test
+  public void testIterator()
+  {
+    Iterator<Application> iterator = apps.getIterator();
+    assertFalse("Iterator should have zero items in an empty set", iterator.hasNext());      
+    app1 = new Application(job1, recruiter1, seeker1);
+    apps.add(app1);
+    app2 = new Application(job2, recruiter1, seeker2);
+    apps.add(app2);
+    app3 = new Application(job2, recruiter1, seeker1);
+    apps.add(app3);
+    iterator = apps.getIterator();
+    Set<Application> appset = new HashSet<Application>();
+    appset.add(app1);
+    appset.add(app2);
+    appset.add(app3);
+    assertTrue("Iterator should iterate through all items", appset.contains(iterator.next()));
+    assertTrue("Iterator should iterate through all items", appset.contains(iterator.next()));
+    assertTrue("Iterator should iterate through all items", appset.contains(iterator.next()));      
+    assertFalse("Iterator should return same number of items as inserted", iterator.hasNext());      
+  }
 
 }

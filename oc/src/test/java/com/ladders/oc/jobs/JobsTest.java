@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ladders.oc.jobs.*;
-
 public class JobsTest
 {
   static Jobs jobs = null;
@@ -23,7 +21,6 @@ public class JobsTest
   public static void setUpBeforeClass() throws Exception
   {
     jobs = new Jobs();
-    Date now = new Date();
     job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     job2 = JobFactory.createJReqJob(new JobTitle("Architect"));
   }
@@ -75,9 +72,12 @@ public class JobsTest
     jobs.add(job1);
     jobs.add(job2);
     iterator = jobs.getIterator();
-    assertEquals("Iterator should iterate in the same order as insertions", iterator.next(), job1);
-    assertEquals("Iterator should iterate in the same order as insertions", iterator.next(), job2);      
-    assertFalse("Iterator should hreturn same number of items as inserted", iterator.hasNext());      
+    Set<Job> jobset = new HashSet<Job>();
+    jobset.add(job1);
+    jobset.add(job2);
+    assertTrue("Iterator should iterate through all items", jobset.contains(iterator.next()));
+    assertTrue("Iterator should iterate through all items", jobset.contains(iterator.next()));      
+    assertFalse("Iterator should return same number of items as inserted", iterator.hasNext());      
   }
 
   @Test

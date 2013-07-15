@@ -24,12 +24,12 @@ public class ApplicationRepositoryTest
   static JobSeeker seeker2 = null;
   static Job job1 = null;
   static Job job2 = null;
-  static Application app1 = null;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception
   {
     repo = ApplicationRepository.getInstance();
+    repo.deleteAllApplications();
     recruiter1 = new Recruiter(new Name("John"));
     recruiter2 = new Recruiter(new Name("Henry"));
     seeker1 = new JobSeeker(new Name("David"));
@@ -48,7 +48,9 @@ public class ApplicationRepositoryTest
 
   @After
   public void tearDown() throws Exception
-  {}
+  {
+    repo.deleteAllApplications();
+  }
 
   @Test
   public void testInstance()
@@ -57,17 +59,11 @@ public class ApplicationRepositoryTest
     assertEquals("Newly constructed JobRepository instance should have zero size", repo.getNumberOfApplications(), 0);
   }
   
-  @Test(expected = IllegalArgumentException.class)
-  public void testPostJobWithNullArgument()
-  {
-    repo.addApplication(null);
-  }
-
   @Test
   public void testAddApplcation()
   {
     boolean result;
-    app1 = new Application(job1, recruiter1, seeker1);
+    Application app1 = new Application(job1, recruiter1, seeker1);
     result = repo.addApplication(app1);
     assertTrue("AddApplication must return true when successful", result);
     assertEquals("Application count should go up by one after adding a new application", repo.getNumberOfApplications(), 1); // assuming single-threaded testing
@@ -89,10 +85,9 @@ public class ApplicationRepositoryTest
   @Test
   public void testCreateFilter()
   {
-    ApplicationRepository.Filter filter = repo.createFilter();
-    assertNotNull("GetInstnace must return the object", filter);
     Date date1 = new Date();
-    filter.setJob(job1).setRecruiter(recruiter1).setJobSeeker(seeker1).setDate(date1);
+    ApplicationRepository.Filter filter = repo.createFilter(job1, recruiter1, seeker1, date1);
+    assertNotNull("GetInstnace must return the object", filter);
     assertEquals("Filter field should be set correctly with set methods", filter.job, job1);
     assertEquals("Filter field should be set correctly with set methods", filter.recruiter, recruiter1);
     assertEquals("Filter field should be set correctly with set methods", filter.seeker, seeker1);
@@ -102,10 +97,26 @@ public class ApplicationRepositoryTest
   @Test
   public void testGetApplications()
   {
-    ApplicationRepository.Filter filter = repo.createFilter();
-    assertNotNull("GetInstnace must return the object", filter);
+    Application app1 = new Application(job1, recruiter1, seeker1);
+    repo.addApplication(app1);
     Date date1 = new Date();
-    filter.setJob(job1).setRecruiter(recruiter1).setJobSeeker(seeker1).setDate(date1);
-    repo.getApplications(filter);
+    ApplicationRepository.Filter filter = repo.createFilter(job1, recruiter1, seeker1, date1);
+    assertNotNull("GetInstnace must return the object", filter);
+    Applications apps = repo.getApplications(filter);
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 1);
+    Application app2 = new Application(job1, recruiter2, seeker2);
+    repo.addApplication(app2);
+    filter = repo.createFilter(job1, null, null, null);
+    apps = repo.getApplications(filter);
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 2);
+    filter = repo.createFilter(null, recruiter1, null, null);
+    apps = repo.getApplications(filter);
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 1);
+    filter = repo.createFilter(null, null, seeker1, null);
+    apps = repo.getApplications(filter);
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 1);
+    filter = repo.createFilter(null, null, null, date1);
+    apps = repo.getApplications(filter);
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 2);
   }
 }

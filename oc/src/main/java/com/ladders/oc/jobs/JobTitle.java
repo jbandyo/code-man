@@ -14,7 +14,7 @@ public class JobTitle implements Displayable
    * @param _title    a string that describes Job Title
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */
-  public JobTitle(String _title) throws IllegalArgumentException
+  public JobTitle(String _title)
   {
     // validate
     if ((_title == null) || (_title.length() == 0))

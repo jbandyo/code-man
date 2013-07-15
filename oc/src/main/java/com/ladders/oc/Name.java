@@ -14,7 +14,7 @@ public class Name implements Displayable
    * @param _name    a string that describes the name
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */
-  public Name(String _name) throws IllegalArgumentException
+  public Name(String _name)
   {
     // validate
     if ((_name == null) || (_name.length() == 0))

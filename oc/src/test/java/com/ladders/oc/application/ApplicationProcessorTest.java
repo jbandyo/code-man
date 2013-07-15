@@ -40,12 +40,10 @@ public class ApplicationProcessorTest
     JobSeeker seeker1 = new JobSeeker(new Name("David"));
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
-    PostedJob postedJob1 = new PostedJob(recruiter1, job1);
-    ApplicationProcessor.applyToJob(seeker1, postedJob1, null);
+    ApplicationProcessor.applyToJob(seeker1, job1, recruiter1, null);
     Job job2 = JobFactory.createJReqJob(new JobTitle("Programmer"));
     Resume resume2 = ResumeCreator.createResume(seeker1);
-    PostedJob postedJob2 = new PostedJob(recruiter1, job2);
-    ApplicationProcessor.applyToJob(seeker1, postedJob2, resume2);
+    ApplicationProcessor.applyToJob(seeker1, job2, recruiter1, resume2);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -54,11 +52,11 @@ public class ApplicationProcessorTest
     JobSeeker seeker1 = new JobSeeker(new Name("David"));
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Job job1 = JobFactory.createJReqJob(new JobTitle("Developer"));
-    PostedJob postedJob1 = new PostedJob(recruiter1, job1);
     Resume resume1 = ResumeCreator.createResume(seeker1);
-    ApplicationProcessor.applyToJob(null, postedJob1, resume1);
-    ApplicationProcessor.applyToJob(seeker1, null, resume1);
-    ApplicationProcessor.applyToJob(seeker1, postedJob1, null);
+    ApplicationProcessor.applyToJob(null, job1, recruiter1, resume1);
+    ApplicationProcessor.applyToJob(seeker1, null, recruiter1, resume1);
+    ApplicationProcessor.applyToJob(seeker1, job1, null, resume1);
+    ApplicationProcessor.applyToJob(seeker1, job1, recruiter1, null);
   }
 }
   

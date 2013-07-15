@@ -1,8 +1,6 @@
 package com.ladders.oc.jobs;
 
-import java.util.UUID;
-import com.ladders.oc.*;
-import com.ladders.oc.display.View;
+import java.util.*;
 import com.ladders.oc.display.Displayable;
 
 /**
@@ -16,8 +14,9 @@ public abstract class Job implements Displayable
   /**
    * Base class constructor 
    * @param _title    a JobTitle object
+   * @throws IllegalArgumentException if title is null
    */
-  Job(JobTitle _title) throws IllegalArgumentException
+  Job(JobTitle _title) 
   {
     // validate
     if (_title == null)

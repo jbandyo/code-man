@@ -67,6 +67,36 @@ public class ApplicationTest
     }
     assertTrue("Application field test should work correctly", app.containsDate(now));
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRetrieveJobSeekerWithNullInput()
+  {
+    JobSeekers seekers = Application.retrieveJobSeekers(null);    
+  }
+
+  @Test
+  public void testRetrieveJobSeeker()
+  {
+    Job job = JobFactory.createATSJob(new JobTitle("Developer"));
+    Recruiter recruiter = new Recruiter(new Name("John"));
+    JobSeeker seeker1 = new JobSeeker(new Name("Tom"));
+    JobSeeker seeker2 = new JobSeeker(new Name("Dick"));
+    JobSeeker seeker3 = new JobSeeker(new Name("Harry"));
+    Applications apps = new Applications();
+    Application app1 = new Application(job, recruiter, seeker1);
+    apps.add(app1);
+    Application app2 = new Application(job, recruiter, seeker2);
+    apps.add(app2);
+    Application app3 = new Application(job, recruiter, seeker3);
+    apps.add(app3);
+    JobSeekers seekers = Application.retrieveJobSeekers(apps);
+    assertNotNull("RetrieveJobSeekers must return the JobSeekers object", seekers);
+    assertEquals("RetrieveJobSeekers must return correct number of JobSeekers", seekers.getCount(), 3);
+    assertTrue("JobSeeker set must contain the JobSeeker inserted", seekers.contains(seeker1));
+    assertTrue("JobSeeker set must contain the JobSeeker inserted", seekers.contains(seeker2));
+    assertTrue("JobSeeker set must contain the JobSeeker inserted", seekers.contains(seeker3));    
+  }
+
 }
 
 

@@ -1,12 +1,16 @@
 package com.ladders.oc.jobseekers;
 
-import com.ladders.oc.*;
-import com.ladders.oc.jobseekers.*;
-import com.ladders.oc.recruiters.*;
+import java.util.*;
 
+import com.ladders.oc.application.Application;
+import com.ladders.oc.jobs.*;
+
+/**
+ * Maintains job seekers' data.
+ */
 public class AccountManager
 {
-  private final JobArchive<JobSeeker> savedJobs = new JobArchive<JobSeeker>();
+  private final Map<JobSeeker, Jobs> savedJobs = Collections.synchronizedMap(new HashMap<JobSeeker, Jobs>());
   
   private AccountManager()
   {    
@@ -22,20 +26,44 @@ public class AccountManager
     return SingletonHolder.singleton;
   }
   
+  /**
+   * Saves job posting along with jobseeker reference.
+   * @param seeker Jobseeker instance.
+   * @param job    Job instance.
+   * @return true if the job was not saved before
+   * @throws IllegalArgumentException if any of the inputs are null.
+   */
   public boolean saveViewedJob(JobSeeker seeker,
-                            PostedJob job)
+                               Job job)
   {
-    return savedJobs.addJob(seeker, job);
+    // validate
+    if ((seeker == null) || (job == null))
+      throw new IllegalArgumentException();
+
+    Jobs jobs = savedJobs.get(seeker);
+    
+    if (jobs == null)
+    {
+      jobs = new Jobs();
+      savedJobs.put(seeker, jobs);
+    }
+    
+    // add posting to seeker's list
+    return jobs.add(job);
   }
 
-  public void deleteAllViewedJobs()
+   /**
+   * Retrieves job postings for a jobseeker.
+   * @param seeker   Jobseeker instance.
+   */
+   public Jobs getViewedJobs(JobSeeker seeker)
   {
-    savedJobs.deleteAllLists();
+     return savedJobs.get(seeker);
   }
 
-  public PostedJobs getViewedJobs(JobSeeker seeker)
-  {
-    return savedJobs.getJobs(seeker);
-  }
+   void deleteAllViewedJobs()
+   {
+     savedJobs.clear();
+   }
 
 }

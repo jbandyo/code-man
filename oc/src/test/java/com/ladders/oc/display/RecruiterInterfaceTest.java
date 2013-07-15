@@ -2,17 +2,14 @@ package com.ladders.oc.display;
 
 // manual display verification only
 
-import static org.junit.Assert.*;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 import com.ladders.oc.*;
 import com.ladders.oc.jobs.*;
-import com.ladders.oc.display.*;
+import com.ladders.oc.postedjobs.*;
 import com.ladders.oc.recruiters.*;
+import com.ladders.oc.view.View;
 
 public class RecruiterInterfaceTest
 {
@@ -31,7 +28,7 @@ public class RecruiterInterfaceTest
     Jobs jobs = repo.getRecruiterJobs(recruiter);
     View view = View.getInstance();
     System.out.print("Jobs posted by: ");
-    view.displayObjectLF(recruiter);
+    view.displayItemLF(recruiter);
     view.displayList(jobs);
   }
 }
