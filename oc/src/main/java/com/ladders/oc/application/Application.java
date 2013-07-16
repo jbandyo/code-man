@@ -2,27 +2,20 @@ package com.ladders.oc.application;
 
 import java.util.*;
 
-
 import com.ladders.oc.jobs.*;
 import com.ladders.oc.jobseekers.*;
 import com.ladders.oc.recruiters.*;
-import com.ladders.oc.view.JobsAppliedToView;
-import com.ladders.oc.display.*;
+import com.ladders.oc.dispinterface.*;
 
 /**
  * Represents a job application.
  */
-public class Application implements DisplayableObject
+public class Application implements DisplayableObject, FieldDisplayable
 {
   private final Job   job;
   private final Recruiter recruiter;
   private final JobSeeker  seeker;
   private final Date  date;
-
-  public static enum Fields
-  {
-    JOB, RECRUITER, JOBSEEKER, DATE
-  }
 
   Application(Job _job, Recruiter _recruiter, JobSeeker _seeker)
   {
@@ -113,6 +106,7 @@ public class Application implements DisplayableObject
   }
 
   // interface method implementation
+  @Override
   public String[] getDisplayTextArray()
   {
     String[] texts = new String[4];
@@ -123,6 +117,7 @@ public class Application implements DisplayableObject
     return texts;
   }
   
+  @Override
   public void displayInstance(ApplicationDisplayer viewObj)
   { 
     viewObj.displayApplicationFields(job, recruiter, seeker, date);

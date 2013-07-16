@@ -9,7 +9,6 @@ import java.util.*;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-
 import com.ladders.oc.*;
 import com.ladders.oc.application.*;
 import com.ladders.oc.jobs.*;
@@ -17,7 +16,7 @@ import com.ladders.oc.jobseekers.*;
 import com.ladders.oc.postedjobs.*;
 import com.ladders.oc.recruiters.*;
 import com.ladders.oc.resume.*;
-import com.ladders.oc.view.View;
+import com.ladders.oc.view.*;
 
 public class QuickDisplayTest
 {
@@ -25,6 +24,8 @@ public class QuickDisplayTest
   @Test
   public void test()
   {
+    ConsoleView view = View.getInstance();
+
     // recruiter postings
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Recruiter recruiter2 = new Recruiter(new Name("Henry"));
@@ -40,7 +41,6 @@ public class QuickDisplayTest
     repo.postJob(recruiter2, job3);
     // get back from repo
     Jobs jobs = repo.getRecruiterJobs(recruiter1);
-    View view = View.getInstance();
     view.displayRecruiterJobs(recruiter1, jobs);
     
     jobs = repo.getPostedJobs();
@@ -63,6 +63,7 @@ public class QuickDisplayTest
       }
       ++i;
     }
+    view.displayAllJobsEnd();
 
     view.displaySavedJobsStart(seeker1);
     jobs = manager.getViewedJobs(seeker1);
@@ -75,6 +76,7 @@ public class QuickDisplayTest
       ApplicationProcessor.applyToJob(seeker1, jobx, recruiterx, resumex);
       view.displaySavedJobsItem(jobx);
     }
+    view.displaySavedJobsEnd();
 
     view.displaySavedJobsStart(seeker2);
     jobs = manager.getViewedJobs(seeker2);
@@ -84,6 +86,7 @@ public class QuickDisplayTest
       Job jobx = iterator.next();
       view.displaySavedJobsItem(jobx);
     }
+    view.displaySavedJobsEnd();
 
     ApplicationProcessor.applyToJob(seeker2, job2, recruiter1, null);
     ApplicationProcessor.applyToJob(seeker2, job3, recruiter2, null);
@@ -96,8 +99,9 @@ public class QuickDisplayTest
     while (appiter.hasNext())
     {
       Application appx = appiter.next();
-      view.displayJobSeekerJob(appx);
+      view.displayAppliedToJobsItem(appx);
     }
+    view.displayAppliedToJobsEnd();
 
     view.displayAppliedToJobsStart(seeker2);
     filter = apprepo.createFilter(null, null, seeker2, null);
@@ -106,8 +110,9 @@ public class QuickDisplayTest
     while (appiter.hasNext())
     {
       Application appx = appiter.next();
-      view.displayJobSeekerJob(appx);
+      view.displayAppliedToJobsItem(appx);
     }
+    view.displayAppliedToJobsEnd();
 
     Date date = new Date();
     filter = apprepo.createFilter(null, recruiter1, null, date);
@@ -147,6 +152,7 @@ public class QuickDisplayTest
       Application appx = appiter.next();
       view.reportByCSVItem(appx);
     }
+    view.reportByCSVEnd();
 
     view.reportByHtmlStart();
     appiter = apps.getIterator();

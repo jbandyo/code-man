@@ -2,7 +2,6 @@ package com.ladders.oc.jobseekers;
 
 import java.util.*;
 
-import com.ladders.oc.application.Application;
 import com.ladders.oc.jobs.*;
 
 /**

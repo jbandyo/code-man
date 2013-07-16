@@ -4,10 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ladders.oc.view.View;
-
-
-
 public class JReqJobTest
 {
 

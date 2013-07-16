@@ -1,6 +1,6 @@
 package com.ladders.oc.jobs;
 
-import com.ladders.oc.display.*;
+import com.ladders.oc.dispinterface.*;
 
 /**
  * Creates a wrapper object for job title.

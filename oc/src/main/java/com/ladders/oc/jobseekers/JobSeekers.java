@@ -2,7 +2,7 @@ package com.ladders.oc.jobseekers;
 
 import java.util.*;
 
-import com.ladders.oc.display.DisplayableCollection;
+import com.ladders.oc.dispinterface.DisplayableCollection;
 
 /**
  * Wrapper class for a set of jobseekers.

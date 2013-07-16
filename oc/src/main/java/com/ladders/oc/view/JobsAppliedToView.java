@@ -2,7 +2,7 @@ package com.ladders.oc.view;
 
 import java.util.Date;
 
-import com.ladders.oc.display.ApplicationDisplayer;
+import com.ladders.oc.dispinterface.ApplicationDisplayer;
 import com.ladders.oc.jobs.Job;
 import com.ladders.oc.jobseekers.JobSeeker;
 import com.ladders.oc.recruiters.Recruiter;

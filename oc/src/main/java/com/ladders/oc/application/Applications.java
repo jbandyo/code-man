@@ -2,9 +2,6 @@ package com.ladders.oc.application;
 
 import java.util.*;
 
-import com.ladders.oc.jobs.Job;
-import com.ladders.oc.jobs.Jobs;
-
 /**
  * Wrapper class for a set of Job Applications.
  * Note: Not thread-safe.

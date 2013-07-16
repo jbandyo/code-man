@@ -3,7 +3,7 @@ package com.ladders.oc.recruiters;
 import java.util.UUID;
 
 import com.ladders.oc.Name;
-import com.ladders.oc.display.Displayable;
+import com.ladders.oc.dispinterface.Displayable;
 
 /**
  * Represents a Recruiter.

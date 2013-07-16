@@ -1,7 +1,8 @@
 package com.ladders.oc.jobs;
 
 import java.util.*;
-import com.ladders.oc.display.*;
+
+import com.ladders.oc.dispinterface.*;
 
 /**
  * Wrapper class for a set of jobs.

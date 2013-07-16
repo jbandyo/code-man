@@ -1,15 +1,11 @@
 package com.ladders.oc.view;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.ladders.oc.application.Application;
-import com.ladders.oc.display.*;
-import com.ladders.oc.jobs.Job;
-import com.ladders.oc.jobs.Jobs;
-import com.ladders.oc.jobseekers.JobSeeker;
-import com.ladders.oc.recruiters.Recruiter;
+import com.ladders.oc.dispinterface.*;
 
-public class View implements DisplayHandler
+public class View implements ConsoleView
 {
   // singleton pattern implementation
   private static final class SingletonHolder 
@@ -20,29 +16,31 @@ public class View implements DisplayHandler
   {
     return SingletonHolder.singleton;
   }
+  
+  private void printDate(Date date)
+  {
+    SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yy");
+    System.out.println(sdf.format(date));
+  }
 
-  @Override
-  public void displayItem(Displayable item)
+  private void displayItem(Displayable item)
   {
     System.out.print(item.getDisplayText());
   }
 
-  @Override
-  public void displayItemLF(Displayable item)
+  private void displayItemLF(Displayable item)
   {
     System.out.println(item.getDisplayText());
   }
 
-  @Override 
-  public void displayList(DisplayableCollection col)
+  private void displayList(DisplayableCollection col)
   {
     List<String> strings = col.getDisplayTextList();
     for (String text : strings)
       System.out.println(text);
   }
 
-  @Override
-  public void displayObjectLF(DisplayableObject obj)
+  private void displayObjectLF(DisplayableObject obj)
   {
     String[] texts = obj.getDisplayTextArray();
     System.out.print(texts[0]);
@@ -55,41 +53,32 @@ public class View implements DisplayHandler
     System.out.println();
   }
   
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayRecruiterJobs(com.ladders.oc.dispinterface.Displayable, com.ladders.oc.dispinterface.DisplayableCollection)
+   */
   @Override
-  public void displayJobSeekerJob(Application app)
-  {
-    ApplicationDisplayer appview = new JobsAppliedToView();
-    app.displayInstance(appview);
-  }
-
-  @Override
-  public void reportByCSVItem(Application app)
-  {
-    ApplicationDisplayer appview = new CSVReport();
-    app.displayInstance(appview);
-  }
-
-  @Override
-  public void reportByHtmlItem(Application app)
-  {
-    ApplicationDisplayer appview = new HtmlReport();
-    app.displayInstance(appview);
-  }
-
   public void displayRecruiterJobs(Displayable obj,
-                                          DisplayableCollection col)
+                                   DisplayableCollection col)
   {
     System.out.print("Jobs posted by: ");
     displayItemLF(obj);
     displayList(col);    
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAllJobsStart()
+   */
+  @Override
   public void displayAllJobsStart()
   {
     System.out.println();
     System.out.println("List of all jobs");    
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAllJobsItem(com.ladders.oc.dispinterface.Displayable, com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
   public void displayAllJobsItem(Displayable obj1,
                                  Displayable obj2)
   {
@@ -98,6 +87,19 @@ public class View implements DisplayHandler
     displayItemLF(obj2);    
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAllJobsStart()
+   */
+  @Override
+  public void displayAllJobsEnd()
+  {
+    System.out.println();
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displaySavedJobsStart(com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
   public void displaySavedJobsStart(Displayable obj)
   {
     System.out.println();
@@ -105,11 +107,28 @@ public class View implements DisplayHandler
     displayItemLF(obj);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displaySavedJobsItem(com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
   public void displaySavedJobsItem(Displayable obj)
   {
     displayItemLF(obj);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displaySavedJobsStart(com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
+  public void displaySavedJobsEnd()
+  {
+    System.out.println();
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAppliedToJobsStart(com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
   public void displayAppliedToJobsStart(Displayable obj)
   {
     System.out.println();
@@ -117,6 +136,30 @@ public class View implements DisplayHandler
     displayItemLF(obj);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayJobSeekerJob(com.ladders.oc.dispinterface.FieldDisplayable)
+   */
+  @Override
+  public void displayAppliedToJobsItem(FieldDisplayable app)
+  {
+    ApplicationDisplayer appview = new JobsAppliedToView();
+    app.displayInstance(appview);    
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAppliedToJobsStart(com.ladders.oc.dispinterface.Displayable)
+   */
+  @Override
+  public void displayAppliedToJobsEnd()
+  {
+    System.out.println();
+  }
+
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayJobSeekersByDate(com.ladders.oc.dispinterface.Displayable, java.util.Date, com.ladders.oc.dispinterface.DisplayableCollection)
+   */
+  @Override
   public void displayJobSeekersByDate(Displayable obj,
                                            Date date,
                                            DisplayableCollection col)
@@ -126,10 +169,14 @@ public class View implements DisplayHandler
     System.out.print("Recruier: ");
     displayItemLF(obj);
     System.out.print("Date:     ");
-    System.out.println(date.toString());
+    printDate(date);
     displayList(col);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayJobSeekersByJob(com.ladders.oc.dispinterface.Displayable, com.ladders.oc.dispinterface.Displayable, com.ladders.oc.dispinterface.DisplayableCollection)
+   */
+  @Override
   public void displayJobSeekersByJob(Displayable obj1,
                                           Displayable obj2,
                                           DisplayableCollection col)
@@ -143,6 +190,10 @@ public class View implements DisplayHandler
     displayList(col);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayJobSeekersByJobDate(com.ladders.oc.dispinterface.Displayable, com.ladders.oc.dispinterface.Displayable, java.util.Date, com.ladders.oc.dispinterface.DisplayableCollection)
+   */
+  @Override
   public void displayJobSeekersByJobDate(Displayable obj1,
                                               Displayable obj2,
                                               Date date,
@@ -155,10 +206,14 @@ public class View implements DisplayHandler
     System.out.print("Job     : ");
     displayItemLF(obj2);
     System.out.print("Date    : ");
-    System.out.println(date.toString());    
+    printDate(date);
     displayList(col);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAggregateApplicationsByJob(com.ladders.oc.dispinterface.Displayable, int)
+   */
+  @Override
   public void displayAggregateApplicationsByJob(Displayable obj,
                                            int count)
   {
@@ -169,6 +224,10 @@ public class View implements DisplayHandler
     System.out.println("Total = " + count);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#displayAggregateApplicationsByRecruiter(com.ladders.oc.dispinterface.Displayable, int)
+   */
+  @Override
   public void displayAggregateApplicationsByRecruiter(Displayable obj,
                                                       int count)
   {
@@ -179,23 +238,66 @@ public class View implements DisplayHandler
     System.out.println("Total = " + count);
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByCSVStart()
+   */
+  @Override
   public void reportByCSVStart()
   {
     System.out.println();
     System.out.println("Applications Report by CSV");    
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByCSVItem(com.ladders.oc.dispinterface.FieldDisplayable)
+   */
+  @Override
+  public void reportByCSVItem(FieldDisplayable app)
+  {
+    ApplicationDisplayer appview = new CSVReport();
+    app.displayInstance(appview);
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByCSVStart()
+   */
+  @Override
+  public void reportByCSVEnd()
+  {
+    System.out.println();
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByHtmlStart()
+   */
+  @Override
   public void reportByHtmlStart()
   {
     System.out.println();
     System.out.println("Applications Report by Html");    
     System.out.println("<html>");
+    System.out.println("<body>");
     System.out.println("<table>");    
   }
 
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByHtmlItem(com.ladders.oc.dispinterface.FieldDisplayable)
+   */
+  @Override
+  public void reportByHtmlItem(FieldDisplayable app)
+  {
+    ApplicationDisplayer appview = new HtmlReport();
+    app.displayInstance(appview);
+  }
+
+  /* (non-Javadoc)
+   * @see com.ladders.oc.view.ConsoleView#reportByHtmlEnd()
+   */
+  @Override
   public void reportByHtmlEnd()
   {
     System.out.println("</table>");
+    System.out.println("</body>");
     System.out.println("</html>");
   }
   

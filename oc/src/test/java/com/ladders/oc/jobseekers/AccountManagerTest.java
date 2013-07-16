@@ -2,8 +2,6 @@ package com.ladders.oc.jobseekers;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,7 +10,6 @@ import org.junit.Test;
 
 import com.ladders.oc.Name;
 import com.ladders.oc.jobs.*;
-import com.ladders.oc.postedjobs.*;
 import com.ladders.oc.recruiters.*;
 
 public class AccountManagerTest

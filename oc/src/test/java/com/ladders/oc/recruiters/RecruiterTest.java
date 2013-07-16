@@ -6,8 +6,6 @@ import org.junit.Test;
 
 
 import com.ladders.oc.Name;
-import com.ladders.oc.jobs.ATSJob;
-import com.ladders.oc.jobs.JobTitle;
 import com.ladders.oc.recruiters.Recruiter;
 
 public class RecruiterTest

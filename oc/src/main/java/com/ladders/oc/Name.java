@@ -1,6 +1,6 @@
 package com.ladders.oc;
 
-import com.ladders.oc.display.Displayable;
+import com.ladders.oc.dispinterface.Displayable;
 
 /**
  * Creates a wrapper object for a name.

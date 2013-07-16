@@ -1,7 +1,8 @@
 package com.ladders.oc.jobs;
 
 import java.util.*;
-import com.ladders.oc.display.Displayable;
+
+import com.ladders.oc.dispinterface.Displayable;
 
 /**
  * Abstract base class for all job types.
