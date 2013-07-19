@@ -93,7 +93,7 @@ public class View implements ConsoleView
   @Override
   public void displayAllJobsEnd()
   {
-    System.out.println();
+    System.out.println("==============================");
   }
 
   /* (non-Javadoc)
@@ -122,7 +122,7 @@ public class View implements ConsoleView
   @Override
   public void displaySavedJobsEnd()
   {
-    System.out.println();
+    System.out.println("==============================");
   }
 
   /* (non-Javadoc)
@@ -152,7 +152,7 @@ public class View implements ConsoleView
   @Override
   public void displayAppliedToJobsEnd()
   {
-    System.out.println();
+    System.out.println("==============================");
   }
 
 
@@ -264,7 +264,7 @@ public class View implements ConsoleView
   @Override
   public void reportByCSVEnd()
   {
-    System.out.println();
+    System.out.println("==============================");
   }
 
   /* (non-Javadoc)
