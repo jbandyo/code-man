@@ -2,12 +2,13 @@ package com.ladders.oc.jobs;
 
 import java.util.*;
 
-import com.ladders.oc.dispinterface.Displayable;
+import com.ladders.oc.displayables.DisplayableJob;
+import com.ladders.oc.displayers.JobDisplayer;
 
 /**
  * Abstract base class for all job types.
  */
-public abstract class Job implements Displayable
+public abstract class Job implements DisplayableJob
 {
   protected final UUID uId;
   protected final JobTitle title;
@@ -50,9 +51,9 @@ public abstract class Job implements Displayable
   }
   
   // interface method implementation
-  public String getDisplayText()
-  {
-    return title.getDisplayText();    
-  }
+  public void displayInstance(JobDisplayer displayer)
+ {
+   displayer.displayJob(title);
+ }
 
 }

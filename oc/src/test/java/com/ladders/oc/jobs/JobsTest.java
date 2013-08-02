@@ -80,13 +80,4 @@ public class JobsTest
     assertFalse("Iterator should return same number of items as inserted", iterator.hasNext());      
   }
 
-  @Test
-  public void testGetDisplayTestList()
-  {
-    jobs.add(job1);
-    jobs.add(job2);
-    List<String> titles = jobs.getDisplayTextList();
-    assertTrue("Add must enter job posting correcty", titles.contains("Developer"));
-    assertTrue("Add must enter job posting correcty", titles.contains("Architect"));
-  }
 }

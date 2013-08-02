@@ -2,13 +2,14 @@ package com.ladders.oc.jobs;
 
 import java.util.*;
 
-import com.ladders.oc.dispinterface.*;
+import com.ladders.oc.displayables.*;
+import com.ladders.oc.displayers.JobsDisplayer;
 
 /**
  * Wrapper class for a set of jobs.
  * Note: Not thread-safe.
  */
-public class Jobs implements DisplayableCollection
+public class Jobs implements DisplayableJobs
 {
   private final Set<Job> jobSet = new LinkedHashSet<Job>();
 
@@ -60,14 +61,12 @@ public class Jobs implements DisplayableCollection
   }
 
   // interface method implementation
-  public List<String> getDisplayTextList()
+  @Override
+  public void displayCollection(JobsDisplayer displayer)
   {
-    List<String> texts = new ArrayList<String>();
-    for (Job job : jobSet)
-    {
-      texts.add(job.getDisplayText());
-    }
-    return texts;
+    Set<Job> jobs = new LinkedHashSet<Job>(jobSet);
+    displayer.displayJobs(jobs);
+    
   }
 
 }

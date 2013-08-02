@@ -37,7 +37,7 @@ public class ApplicationProcessorTest
   public void testApplyToJob()
   {
     // ATS Job
-    JobSeeker seeker1 = new JobSeeker(new Name("David"));
+    Jobseeker seeker1 = new Jobseeker(new Name("David"));
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     ApplicationProcessor.applyToJob(seeker1, job1, recruiter1, null);
@@ -49,7 +49,7 @@ public class ApplicationProcessorTest
   @Test(expected = IllegalArgumentException.class)
   public void testApplyToJobWithWrongInput()
   {
-    JobSeeker seeker1 = new JobSeeker(new Name("David"));
+    Jobseeker seeker1 = new Jobseeker(new Name("David"));
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Job job1 = JobFactory.createJReqJob(new JobTitle("Developer"));
     Resume resume1 = ResumeCreator.createResume(seeker1);

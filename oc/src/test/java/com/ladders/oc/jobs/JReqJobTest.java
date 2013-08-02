@@ -18,7 +18,6 @@ public class JReqJobTest
   {
     JReqJob job = new JReqJob(new JobTitle("Architect"));
     assertNotNull("JReqJob constructor must create the object", job);
-    assertEquals("JReqJob must initialize the job title correctly", job.getDisplayText(), "Architect");    
     assertTrue("JReqJob requires a resume", job.RequiresResume());
   }
 

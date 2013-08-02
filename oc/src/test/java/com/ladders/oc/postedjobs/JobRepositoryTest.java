@@ -88,7 +88,7 @@ public class JobRepositoryTest
   @Test(expected = IllegalArgumentException.class)
   public void testListJobsWithNullArgument()
   {
-    Jobs joblist = repo.getRecruiterJobs(null);
+    Jobs joblist = repo.getJobsPostedBy(null);
   }
 
   @Test
@@ -110,18 +110,18 @@ public class JobRepositoryTest
   @Test
   public void testGetJobsByRecruiter()
   {
-    Jobs joblist = repo.getRecruiterJobs(recruiter1);
+    Jobs joblist = repo.getJobsPostedBy(recruiter1);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter who did not post must be zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    joblist = repo.getRecruiterJobs(recruiter1);
+    joblist = repo.getJobsPostedBy(recruiter1);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 2);
     assertTrue("GetJobs must contain posted job", joblist.contains(job1));
     assertTrue("GetJobs must contain posted job", joblist.contains(job1));
-    joblist = repo.getRecruiterJobs(recruiter2);
+    joblist = repo.getJobsPostedBy(recruiter2);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 1);
     assertTrue("GetJobs must enter job posting correcty", joblist.contains(job3));

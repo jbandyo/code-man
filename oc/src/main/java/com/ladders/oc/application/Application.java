@@ -5,19 +5,20 @@ import java.util.*;
 import com.ladders.oc.jobs.*;
 import com.ladders.oc.jobseekers.*;
 import com.ladders.oc.recruiters.*;
-import com.ladders.oc.dispinterface.*;
+import com.ladders.oc.displayables.*;
+import com.ladders.oc.displayers.ApplicationDisplayer;
 
 /**
  * Represents a job application.
  */
-public class Application implements DisplayableObject, FieldDisplayable
+public class Application implements DisplayableApplication
 {
   private final Job   job;
   private final Recruiter recruiter;
-  private final JobSeeker  seeker;
+  private final Jobseeker  seeker;
   private final Date  date;
 
-  Application(Job _job, Recruiter _recruiter, JobSeeker _seeker)
+  Application(Job _job, Recruiter _recruiter, Jobseeker _seeker)
   {
     job = _job;
     recruiter = _recruiter;
@@ -50,33 +51,30 @@ public class Application implements DisplayableObject, FieldDisplayable
    * @param   _seeker  JobSeeker object
    * @return  true if the jobseeker is part of the object.
    */
-   boolean containsJobSeeker(JobSeeker _seeker)
+   boolean containsJobSeeker(Jobseeker _seeker)
   {
     return seeker == _seeker;
   }
 
    /**
     * Returns whether a date is part of the object.
-    * @param   _date  Date object
+    * @param   queryDate  Date object
     * @return  true if the date is part of the object.
     */
-  boolean containsDate(Date _date)
+  boolean containsDate(Date queryDate)
   {
-    return AppDateComparator.compare(date, _date);
+    return AppDateComparator.isEqual(date, queryDate);
   }
   
   /**
    * Retrieves set of unique jobseekers from the set of applications.
    * @param   apps  Set of Application.
    * @return  set of jobseekers
-   * @throws IllegalArgumentException if input applications object is null.
    */
-  public static JobSeekers retrieveJobSeekers(Applications apps)
+  public static Jobseekers retrieveJobSeekers(Applications apps)
   {
-    if (apps == null)
-      throw new IllegalArgumentException();
     Iterator<Application> iter = apps.getIterator();
-    JobSeekers seekers = new JobSeekers();
+    Jobseekers seekers = new Jobseekers();
     while (iter.hasNext())
     {
       Application app = iter.next();
@@ -105,22 +103,10 @@ public class Application implements DisplayableObject, FieldDisplayable
     return hcode;
   }
 
-  // interface method implementation
   @Override
-  public String[] getDisplayTextArray()
-  {
-    String[] texts = new String[4];
-    texts[0] = job.getDisplayText();
-    texts[1] = recruiter.getDisplayText();
-    texts[2] = seeker.getDisplayText();
-    texts[3] = date.toString();
-    return texts;
-  }
-  
-  @Override
-  public void displayInstance(ApplicationDisplayer viewObj)
+  public void displayInstance(ApplicationDisplayer displayer)
   { 
-    viewObj.displayApplicationFields(job, recruiter, seeker, date);
+    displayer.displayApplication(job, recruiter, seeker, date);
   }
 
 }

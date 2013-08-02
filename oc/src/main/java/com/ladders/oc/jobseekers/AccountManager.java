@@ -9,7 +9,7 @@ import com.ladders.oc.jobs.*;
  */
 public class AccountManager
 {
-  private final Map<JobSeeker, Jobs> savedJobs = Collections.synchronizedMap(new HashMap<JobSeeker, Jobs>());
+  private final Map<Jobseeker, Jobs> savedJobs = Collections.synchronizedMap(new HashMap<Jobseeker, Jobs>());
   
   private AccountManager()
   {    
@@ -32,7 +32,7 @@ public class AccountManager
    * @return true if the job was not saved before
    * @throws IllegalArgumentException if any of the inputs are null.
    */
-  public boolean saveViewedJob(JobSeeker seeker,
+  public boolean saveViewedJob(Jobseeker seeker,
                                Job job)
   {
     // validate
@@ -55,7 +55,7 @@ public class AccountManager
    * Retrieves job postings for a jobseeker.
    * @param seeker   Jobseeker instance.
    */
-   public Jobs getViewedJobs(JobSeeker seeker)
+   public Jobs getViewedJobs(Jobseeker seeker)
   {
      return savedJobs.get(seeker);
   }

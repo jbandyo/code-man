@@ -2,52 +2,49 @@ package com.ladders.oc.view;
 
 import java.util.Date;
 
-import com.ladders.oc.dispinterface.Displayable;
-import com.ladders.oc.dispinterface.DisplayableCollection;
-import com.ladders.oc.dispinterface.FieldDisplayable;
+import com.ladders.oc.displayables.*;
 
 public interface ConsoleView
 {
-
-  void displayRecruiterJobs(Displayable obj,
-                                   DisplayableCollection col);
+  void displayRecruiterJobs(DisplayableRecruiter recruiter,
+                            DisplayableJobs jobs);
 
   void displayAllJobsStart();
-  void displayAllJobsItem(Displayable obj1,
-                                 Displayable obj2);
+  void displayAllJobsItem(DisplayableJob job,
+                          DisplayableRecruiter recruiter);
   void displayAllJobsEnd();
 
-  void displaySavedJobsStart(Displayable obj);
-  void displaySavedJobsItem(Displayable obj);
+  void displaySavedJobsStart(DisplayableJobseeker jobseeker);
+  void displaySavedJobsItem(DisplayableJob job);
   void displaySavedJobsEnd();
 
-  void displayAppliedToJobsStart(Displayable obj);
-  void displayAppliedToJobsItem(FieldDisplayable app);
+  void displayAppliedToJobsStart(DisplayableJobseeker jobseeker);
+  void displayAppliedToJobsItem(DisplayableApplication app);
   void displayAppliedToJobsEnd();
 
-  void displayJobSeekersByDate(Displayable obj,
-                                      Date date,
-                                      DisplayableCollection col);
-  void displayJobSeekersByJob(Displayable obj1,
-                                     Displayable obj2,
-                                     DisplayableCollection col);
-  void displayJobSeekersByJobDate(Displayable obj1,
-                                         Displayable obj2,
-                                         Date date,
-                                         DisplayableCollection col);
+  void displayJobSeekersByDate(DisplayableRecruiter recruiter,
+                               Date date,
+                               DisplayableJobseekers seekers);
+  void displayJobSeekersByJob(DisplayableRecruiter recruiter,
+                              DisplayableJob job,
+                              DisplayableJobseekers seekers);
+  void displayJobSeekersByJobDate(DisplayableRecruiter recruiter,
+                                  DisplayableJob job,
+                                  Date date,
+                                  DisplayableJobseekers seekers);
 
-  void displayAggregateApplicationsByJob(Displayable obj,
-                                                int count);
+  void displayAggregateApplicationsByJob(DisplayableJob job,
+                                         int count);
 
-  void displayAggregateApplicationsByRecruiter(Displayable obj,
-                                                      int count);
+  void displayAggregateApplicationsByRecruiter(DisplayableJob job,
+                                               int count);
 
   void reportByCSVStart();
-  void reportByCSVItem(FieldDisplayable app);
+  void reportByCSVItem(DisplayableApplication app);
   void reportByCSVEnd();
 
   void reportByHtmlStart();
-  void reportByHtmlItem(FieldDisplayable app);
+  void reportByHtmlItem(DisplayableApplication app);
   void reportByHtmlEnd();
 
 }

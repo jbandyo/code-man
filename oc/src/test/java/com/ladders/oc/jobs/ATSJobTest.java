@@ -18,7 +18,6 @@ public class ATSJobTest
   {
     ATSJob job = new ATSJob(new JobTitle("Developer"));
     assertNotNull("ATSJob constructor must create the object", job);
-    assertEquals("ATSJob must initialize the job title correctly", job.getDisplayText(), "Developer");
     assertFalse("ATSJob does not require a resume", job.RequiresResume());
   }
 

@@ -22,7 +22,7 @@ public class AppDateComparator
     return date;
   }
   
-  public static boolean compare(Date date1,
+  public static boolean isEqual(Date date1,
                                 Date date2)
   {
     return (getNormalizedDate(date1).compareTo(getNormalizedDate(date2)) == 0);

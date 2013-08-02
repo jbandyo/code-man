@@ -3,12 +3,13 @@ package com.ladders.oc.recruiters;
 import java.util.UUID;
 
 import com.ladders.oc.Name;
-import com.ladders.oc.dispinterface.Displayable;
+import com.ladders.oc.displayables.DisplayableRecruiter;
+import com.ladders.oc.displayers.RecruiterDisplayer;
 
 /**
  * Represents a Recruiter.
  */
-public class Recruiter implements Displayable
+public class Recruiter implements DisplayableRecruiter
 {
   private final UUID uId;
   private final Name name;
@@ -45,9 +46,12 @@ public class Recruiter implements Displayable
   }
 
   // interface method implementation
-  public String getDisplayText()
+  @Override
+  public void displayInstance(RecruiterDisplayer displayer)
   {
-    return name.getDisplayText();    
+    // TODO Auto-generated method stub
+    displayer.displayRecruiter(name);
+
   }
 
 }

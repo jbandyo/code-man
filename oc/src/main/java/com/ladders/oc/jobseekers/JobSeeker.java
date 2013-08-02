@@ -3,12 +3,13 @@ package com.ladders.oc.jobseekers;
 import java.util.UUID;
 
 import com.ladders.oc.Name;
-import com.ladders.oc.dispinterface.Displayable;
+import com.ladders.oc.displayables.DisplayableJobseeker;
+import com.ladders.oc.displayers.JobseekerDisplayer;
 
 /**
  * Represents a Job Seeker.
  */
-public class JobSeeker implements Displayable
+public class Jobseeker implements DisplayableJobseeker
 {
   private final UUID uId;
   private final Name name;
@@ -17,7 +18,7 @@ public class JobSeeker implements Displayable
    * Constructor.
    * @param _name    a Name object
    */
-  public JobSeeker(Name _name) throws IllegalArgumentException
+  public Jobseeker(Name _name) throws IllegalArgumentException
   {
     if (_name == null)
       throw new IllegalArgumentException();
@@ -32,9 +33,9 @@ public class JobSeeker implements Displayable
   {
     if (o == this)
       return true;
-    if (!(o instanceof JobSeeker))
+    if (!(o instanceof Jobseeker))
       return false;
-    JobSeeker user = (JobSeeker) o;
+    Jobseeker user = (Jobseeker) o;
     return user.uId.equals(uId);
   }
   
@@ -45,9 +46,11 @@ public class JobSeeker implements Displayable
   }
 
   // interface method implementation
-  public String getDisplayText()
+  @Override
+  public void displayInstance(JobseekerDisplayer displayer)
   {
-    return name.getDisplayText();    
+    displayer.displayJobseeker(name);
+    
   }
 
 }

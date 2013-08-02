@@ -1,32 +1,38 @@
 package com.ladders.oc;
 
-import com.ladders.oc.dispinterface.Displayable;
+import com.ladders.oc.displayables.DisplayableName;
+import com.ladders.oc.displayers.NameDisplayer;
 
 /**
  * Creates a wrapper object for a name.
  */
-public class Name implements Displayable
+public class Name implements DisplayableName
 {
   private final String name;
   
   /**
    * Constructor
-   * @param _name    a string that describes the name
+   * @param name    a string that describes the name
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */
-  public Name(String _name)
+  public Name(String name)
   {
     // validate
-    if ((_name == null) || (_name.length() == 0))
-      throw new IllegalArgumentException();
-    // check for max length ???
-    name = _name;
+    if (name == null)
+      throw new IllegalArgumentException("Name is null");
+
+    if (name.length() == 0)
+      throw new IllegalArgumentException("Name is of zero length");
+
+    this.name = name;
   }
   
   // interface method implementation
-  public String getDisplayText()
+  @Override
+  public void displayInstance(NameDisplayer displayer)
   {
-    return name;    
+    displayer.displayName(name);
+    
   }
 
 }

@@ -20,8 +20,8 @@ public class ApplicationRepositoryTest
   static ApplicationRepository repo = null;
   static Recruiter recruiter1 = null;
   static Recruiter recruiter2 = null;
-  static JobSeeker seeker1 = null;
-  static JobSeeker seeker2 = null;
+  static Jobseeker seeker1 = null;
+  static Jobseeker seeker2 = null;
   static Job job1 = null;
   static Job job2 = null;
 
@@ -32,8 +32,8 @@ public class ApplicationRepositoryTest
     repo.deleteAllApplications();
     recruiter1 = new Recruiter(new Name("John"));
     recruiter2 = new Recruiter(new Name("Henry"));
-    seeker1 = new JobSeeker(new Name("David"));
-    seeker2 = new JobSeeker(new Name("Adam"));
+    seeker1 = new Jobseeker(new Name("David"));
+    seeker2 = new Jobseeker(new Name("Adam"));
     job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     job2 = JobFactory.createATSJob(new JobTitle("Architect"));
   }

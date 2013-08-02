@@ -15,8 +15,8 @@ import com.ladders.oc.recruiters.*;
 public class AccountManagerTest
 {
   static AccountManager manager = null;
-  static JobSeeker seeker1 = null;
-  static JobSeeker seeker2 = null;
+  static Jobseeker seeker1 = null;
+  static Jobseeker seeker2 = null;
   static Recruiter recruiter1 = null;
   static Recruiter recruiter2 = null;
   static Job job1 = null;
@@ -27,8 +27,8 @@ public class AccountManagerTest
   public static void setUpBeforeClass() throws Exception
   {
     manager = AccountManager.getInstance();
-    seeker1 = new JobSeeker(new Name("David"));
-    seeker2 = new JobSeeker(new Name("Adam"));
+    seeker1 = new Jobseeker(new Name("David"));
+    seeker2 = new Jobseeker(new Name("Adam"));
     job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     job2 = JobFactory.createATSJob(new JobTitle("Architect"));
     job3 = JobFactory.createATSJob(new JobTitle("Programmer"));

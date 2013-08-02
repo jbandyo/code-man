@@ -12,16 +12,16 @@ import com.ladders.oc.Name;
 
 public class JobSeekersTest
 {
-  static JobSeekers seekers = null;
-  static JobSeeker seeker1 = null;
-  static JobSeeker seeker2 = null;
+  static Jobseekers seekers = null;
+  static Jobseeker seeker1 = null;
+  static Jobseeker seeker2 = null;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception
   {
-    seekers = new JobSeekers();
-    seeker1 = new JobSeeker(new Name("David"));
-    seeker2 = new JobSeeker(new Name("Adam"));
+    seekers = new Jobseekers();
+    seeker1 = new Jobseeker(new Name("David"));
+    seeker2 = new Jobseeker(new Name("Adam"));
   }
 
   @AfterClass

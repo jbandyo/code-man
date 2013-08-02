@@ -66,7 +66,7 @@ public class JobRepository
    * @return list of job postings
    * @throws IllegalArgumentException
    */
-  public Jobs getRecruiterJobs(Recruiter recruiter)
+  public Jobs getJobsPostedBy(Recruiter recruiter)
   {
     // validate
     if (recruiter == null)

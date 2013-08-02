@@ -3,32 +3,38 @@ package com.ladders.oc.view;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.ladders.oc.dispinterface.ApplicationDisplayer;
+import com.ladders.oc.displayers.ApplicationDisplayer;
+import com.ladders.oc.displayers.JobDisplayer;
+import com.ladders.oc.displayers.JobseekerDisplayer;
+import com.ladders.oc.displayers.RecruiterDisplayer;
 import com.ladders.oc.jobs.Job;
-import com.ladders.oc.jobseekers.JobSeeker;
+import com.ladders.oc.jobseekers.Jobseeker;
 import com.ladders.oc.recruiters.Recruiter;
 
 public class HtmlReport implements ApplicationDisplayer
 {
 
   @Override
-  public void displayApplicationFields(Job job,
+  public void displayApplication(Job job,
                                        Recruiter recruiter,
-                                       JobSeeker seeker,
+                                       Jobseeker seeker,
                                        Date date)
   {
     System.out.println("<tr>");
     System.out.print("  <td>");
-    System.out.print(job.getDisplayText());
+    JobDisplayer jobDisplayer = new ConsoleJobDisplayer();
+    job.displayInstance(jobDisplayer);
     System.out.println("  </td>");
     System.out.print("  <td>");
-    System.out.print(recruiter.getDisplayText());
+    RecruiterDisplayer recDisplayer = new ConsoleRecruiterDisplayer();
+    recruiter.displayInstance(recDisplayer);
     System.out.println("  </td>");
     System.out.print("  <td>");
-    System.out.print(seeker.getDisplayText());
+    JobseekerDisplayer displayer = new ConsoleJobseekerDisplayer();
+    seeker.displayInstance(displayer);
     System.out.println("  </td>");
     System.out.print("  <td>");
-    SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yy");
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
     System.out.print(sdf.format(date));
     System.out.println("  </td>");
     System.out.println("</tr>");

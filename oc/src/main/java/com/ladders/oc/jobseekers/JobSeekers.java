@@ -2,15 +2,16 @@ package com.ladders.oc.jobseekers;
 
 import java.util.*;
 
-import com.ladders.oc.dispinterface.DisplayableCollection;
+import com.ladders.oc.displayables.DisplayableJobseekers;
+import com.ladders.oc.displayers.JobseekersDisplayer;
 
 /**
  * Wrapper class for a set of jobseekers.
  * Note: Not thread-safe.
  */
-public class JobSeekers implements DisplayableCollection
+public class Jobseekers implements DisplayableJobseekers
 {
-  private final Set<JobSeeker> seekerSet = new LinkedHashSet<JobSeeker>();
+  private final Set<Jobseeker> seekerSet = new LinkedHashSet<Jobseeker>();
 
   /**
    * Adds a jobseeker to the set of jobseekers.
@@ -18,7 +19,7 @@ public class JobSeekers implements DisplayableCollection
    * @return true if the seeker was not added before.
    * @throws IllegalArgumentException if input jobseeker object is null.
    */
-  public boolean add(JobSeeker seeker)
+  public boolean add(Jobseeker seeker)
   {
     // validate
     if (seeker == null)
@@ -31,7 +32,7 @@ public class JobSeekers implements DisplayableCollection
    * @param   seeker  JobSeeker object
    * @return  true if the jobseeker is present in the set.
    */
-  public boolean contains(JobSeeker seeker)
+  public boolean contains(Jobseeker seeker)
   {
     return seekerSet.contains(seeker);
   }
@@ -51,14 +52,13 @@ public class JobSeekers implements DisplayableCollection
   }
 
   // interface method implementation
-  public List<String> getDisplayTextList()
+  @Override
+  public void displayCollection(JobseekersDisplayer displayer)
   {
-    List<String> texts = new ArrayList<String>();
-    for (JobSeeker seeker : seekerSet)
-    {
-      texts.add(seeker.getDisplayText());
-    }
-    return texts;
+    Set<Jobseeker> seekers = new LinkedHashSet<Jobseeker>(seekerSet);
+    displayer.displayJobseekers(seekers);
+    
   }
+
 
 }

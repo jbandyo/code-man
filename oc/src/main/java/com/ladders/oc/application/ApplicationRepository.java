@@ -72,7 +72,7 @@ public class ApplicationRepository
     }
   }
 
-  public Filter createFilter(Job _job, Recruiter _recruiter, JobSeeker _seeker, Date _date)
+  public Filter createFilter(Job _job, Recruiter _recruiter, Jobseeker _seeker, Date _date)
   {
     return new Filter(_job, _recruiter, _seeker, _date);
   }
@@ -81,10 +81,10 @@ public class ApplicationRepository
   {
     final Job job;
     final Recruiter recruiter;
-    final JobSeeker seeker;
+    final Jobseeker seeker;
     final Date date;
     
-    private Filter(Job _job, Recruiter _recruiter, JobSeeker _seeker, Date _date) 
+    private Filter(Job _job, Recruiter _recruiter, Jobseeker _seeker, Date _date) 
     {      
       job = _job;
       recruiter = _recruiter;

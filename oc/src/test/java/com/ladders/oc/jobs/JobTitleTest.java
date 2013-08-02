@@ -12,7 +12,6 @@ public class JobTitleTest
   {
     JobTitle title = new JobTitle("Developer");
     assertNotNull("JobTitle constructor must create the object", title);
-    assertEquals("JobTitle must initialize the title correctly", title.getDisplayText(), "Developer");
   }
 
   @Test(expected = IllegalArgumentException.class)

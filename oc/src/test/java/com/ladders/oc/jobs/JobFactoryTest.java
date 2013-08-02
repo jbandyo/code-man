@@ -18,7 +18,6 @@ public class JobFactoryTest
   {
     ATSJob job = JobFactory.createATSJob(new JobTitle("Developer"));
     assertNotNull("CreateATSJob must create the object", job);
-    assertEquals("CreateATSJob must initialize the job title correctly", job.getDisplayText(), "Developer");
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -33,7 +32,6 @@ public class JobFactoryTest
     JobTitle title = new JobTitle("Developer");
     JReqJob job = JobFactory.createJReqJob(new JobTitle("Developer"));
     assertNotNull("CreateJReqJob must create the object", job);
-    assertEquals("CreateJReqJob must initialize the job title correctly", job.getDisplayText(), "Developer");    
   }
 
 }

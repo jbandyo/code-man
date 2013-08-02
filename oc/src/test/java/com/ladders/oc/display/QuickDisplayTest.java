@@ -29,8 +29,8 @@ public class QuickDisplayTest
     // recruiter postings
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Recruiter recruiter2 = new Recruiter(new Name("Henry"));
-    JobSeeker seeker1 = new JobSeeker(new Name("David"));
-    JobSeeker seeker2 = new JobSeeker(new Name("Adam"));
+    Jobseeker seeker1 = new Jobseeker(new Name("David"));
+    Jobseeker seeker2 = new Jobseeker(new Name("Adam"));
     Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     Job job2 = JobFactory.createATSJob(new JobTitle("Architect"));
     Job job3 = JobFactory.createATSJob(new JobTitle("Programmer"));
@@ -40,7 +40,7 @@ public class QuickDisplayTest
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
     // get back from repo
-    Jobs jobs = repo.getRecruiterJobs(recruiter1);
+    Jobs jobs = repo.getJobsPostedBy(recruiter1);
     view.displayRecruiterJobs(recruiter1, jobs);
     
     jobs = repo.getPostedJobs();
@@ -118,7 +118,7 @@ public class QuickDisplayTest
     filter = apprepo.createFilter(null, recruiter1, null, date);
     apps = apprepo.getApplications(filter);
     appiter = apps.getIterator();
-    JobSeekers seekers = Application.retrieveJobSeekers(apps);
+    Jobseekers seekers = Application.retrieveJobSeekers(apps);
     view.displayJobSeekersByDate(recruiter1, date, seekers);
     
     filter = apprepo.createFilter(job1, recruiter1, null, null);

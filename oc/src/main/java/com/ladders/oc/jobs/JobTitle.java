@@ -1,11 +1,12 @@
 package com.ladders.oc.jobs;
 
-import com.ladders.oc.dispinterface.*;
+import com.ladders.oc.displayables.*;
+import com.ladders.oc.displayers.JobTitleDisplayer;
 
 /**
  * Creates a wrapper object for job title.
  */
-public class JobTitle implements Displayable
+public class JobTitle implements DisplayableJobTitle
 {
   private final String title;
   
@@ -24,10 +25,11 @@ public class JobTitle implements Displayable
     title = _title;
   }
 
-  // interface method implementation
-  public String getDisplayText()
+  @Override
+  public void displayInstance(JobTitleDisplayer titleDisplayer)
   {
-    return title;    
+    titleDisplayer.displayJobTitle(title);
+    
   }
 
 }

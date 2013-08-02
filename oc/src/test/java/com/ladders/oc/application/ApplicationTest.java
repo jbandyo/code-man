@@ -19,7 +19,7 @@ public class ApplicationTest
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Recruiter recruiter = new Recruiter(new Name("John"));
-    JobSeeker seeker = new JobSeeker(new Name("David"));
+    Jobseeker seeker = new Jobseeker(new Name("David"));
     Application app = new Application(job, recruiter, seeker);
     assertNotNull("Application constructor must create the object", app);
   }
@@ -29,8 +29,8 @@ public class ApplicationTest
   {
     Recruiter recruiter1 = new Recruiter(new Name("John"));
     Recruiter recruiter2 = new Recruiter(new Name("Henry"));
-    JobSeeker seeker1 = new JobSeeker(new Name("David"));
-    JobSeeker seeker2 = new JobSeeker(new Name("Adam"));
+    Jobseeker seeker1 = new Jobseeker(new Name("David"));
+    Jobseeker seeker2 = new Jobseeker(new Name("Adam"));
     Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
     Job job2 = JobFactory.createATSJob(new JobTitle("Architect"));
     Application app1 = new Application(job1, recruiter1, seeker1);
@@ -50,7 +50,7 @@ public class ApplicationTest
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Recruiter recruiter = new Recruiter(new Name("John"));
-    JobSeeker seeker = new JobSeeker(new Name("David"));
+    Jobseeker seeker = new Jobseeker(new Name("David"));
     Application app = new Application(job, recruiter, seeker);
     assertTrue("Application field test should work correctly", app.containsJob(job));
     assertTrue("Application field test should work correctly", app.containsRecruiter(recruiter));
@@ -71,7 +71,7 @@ public class ApplicationTest
   @Test(expected = IllegalArgumentException.class)
   public void testRetrieveJobSeekerWithNullInput()
   {
-    JobSeekers seekers = Application.retrieveJobSeekers(null);    
+    Jobseekers seekers = Application.retrieveJobSeekers(null);    
   }
 
   @Test
@@ -79,9 +79,9 @@ public class ApplicationTest
   {
     Job job = JobFactory.createATSJob(new JobTitle("Developer"));
     Recruiter recruiter = new Recruiter(new Name("John"));
-    JobSeeker seeker1 = new JobSeeker(new Name("Tom"));
-    JobSeeker seeker2 = new JobSeeker(new Name("Dick"));
-    JobSeeker seeker3 = new JobSeeker(new Name("Harry"));
+    Jobseeker seeker1 = new Jobseeker(new Name("Tom"));
+    Jobseeker seeker2 = new Jobseeker(new Name("Dick"));
+    Jobseeker seeker3 = new Jobseeker(new Name("Harry"));
     Applications apps = new Applications();
     Application app1 = new Application(job, recruiter, seeker1);
     apps.add(app1);
@@ -89,7 +89,7 @@ public class ApplicationTest
     apps.add(app2);
     Application app3 = new Application(job, recruiter, seeker3);
     apps.add(app3);
-    JobSeekers seekers = Application.retrieveJobSeekers(apps);
+    Jobseekers seekers = Application.retrieveJobSeekers(apps);
     assertNotNull("RetrieveJobSeekers must return the JobSeekers object", seekers);
     assertEquals("RetrieveJobSeekers must return correct number of JobSeekers", seekers.getCount(), 3);
     assertTrue("JobSeeker set must contain the JobSeeker inserted", seekers.contains(seeker1));

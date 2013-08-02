@@ -17,7 +17,7 @@ public class ApplicationProcessor
    * @param   recruiter  Recruiter object
    * @param   resume     Resume belonging to JobSeeker (can be null if job does not need it)
    */
-  public static void applyToJob(JobSeeker seeker, Job job, Recruiter recruiter, Resume resume)
+  public static void applyToJob(Jobseeker seeker, Job job, Recruiter recruiter, Resume resume)
   {
     if ((seeker == null) || (job == null) || (recruiter==null))
       throw new IllegalArgumentException();
