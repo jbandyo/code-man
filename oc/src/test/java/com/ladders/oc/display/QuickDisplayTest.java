@@ -73,7 +73,7 @@ public class QuickDisplayTest
       Job jobx = iterator.next();
       Recruiter recruiterx = repo.getRecruiterByJob(jobx);
       Resume resumex = ResumeCreator.createResume(seeker1);
-      ApplicationProcessor.applyToJob(seeker1, jobx, recruiterx, resumex);
+      ApplicationProcessor.applyToJob(seeker1, jobx, resumex);
       view.displaySavedJobsItem(jobx);
     }
     view.displaySavedJobsEnd();
@@ -88,8 +88,8 @@ public class QuickDisplayTest
     }
     view.displaySavedJobsEnd();
 
-    ApplicationProcessor.applyToJob(seeker2, job2, recruiter1, null);
-    ApplicationProcessor.applyToJob(seeker2, job3, recruiter2, null);
+    ApplicationProcessor.applyToJob(seeker2, job2, null);
+    ApplicationProcessor.applyToJob(seeker2, job3, null);
     ApplicationRepository apprepo = ApplicationRepository.getInstance();
     
     view.displayAppliedToJobsStart(seeker1);

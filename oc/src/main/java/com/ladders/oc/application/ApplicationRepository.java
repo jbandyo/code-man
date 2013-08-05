@@ -86,12 +86,12 @@ public class ApplicationRepository
     final Jobseeker seeker;
     final Date date;
     
-    private Filter(Job _job, Recruiter _recruiter, Jobseeker _seeker, Date _date) 
+    private Filter(Job job, Recruiter recruiter, Jobseeker seeker, Date date) 
     {      
-      job = _job;
-      recruiter = _recruiter;
-      seeker = _seeker;
-      date = _date;
+      this.job = job;
+      this.recruiter = recruiter;
+      this.seeker = seeker;
+      this.date   = date;
     }
     
     boolean pass(Application app)
@@ -102,7 +102,7 @@ public class ApplicationRepository
         return false;
       if ((seeker != null) && (!app.containsJobSeeker(seeker)))
         return false;;
-      if ((job != null) && (!app.containsJob(job)))
+      if ((date != null) && (!app.containsDate(date)))
         return false;
       return true;
     }

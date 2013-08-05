@@ -11,15 +11,31 @@ import org.junit.Test;
 import com.ladders.oc.*;
 import com.ladders.oc.jobs.*;
 import com.ladders.oc.jobseekers.*;
+import com.ladders.oc.postedjobs.JobRepository;
 import com.ladders.oc.recruiters.*;
 import com.ladders.oc.resume.*;
 
 public class ApplicationProcessorTest
 {
-
+  private static Job jobA;
+  private static Job jobR;
+  private static Jobseeker seeker1;
+  private static Jobseeker seeker2;
+  private static JobRepository jobRepo = null;
+  private static Recruiter recruiter1 = null;
+ 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception
-  {}
+  {
+    jobRepo = JobRepository.getInstance();
+    recruiter1 = new Recruiter(new Name("John"));
+    jobA = JobFactory.createATSJob(new JobTitle("Developer"));
+    jobR = JobFactory.createJReqJob(new JobTitle("Programmer"));
+    jobRepo.postJob(recruiter1, jobA);
+    jobRepo.postJob(recruiter1, jobR);
+    seeker1 = new Jobseeker(new Name("David"));
+    seeker2 = new Jobseeker(new Name("Adam"));
+  }
 
   @AfterClass
   public static void tearDownAfterClass() throws Exception
@@ -31,32 +47,29 @@ public class ApplicationProcessorTest
 
   @After
   public void tearDown() throws Exception
-  {}
+  {
+    jobRepo.deleteAllPostings();
+  }
 
   @Test
   public void testApplyToJob()
   {
     // ATS Job
-    Jobseeker seeker1 = new Jobseeker(new Name("David"));
-    Recruiter recruiter1 = new Recruiter(new Name("John"));
-    Job job1 = JobFactory.createATSJob(new JobTitle("Developer"));
-    ApplicationProcessor.applyToJob(seeker1, job1, recruiter1, null);
-    Job job2 = JobFactory.createJReqJob(new JobTitle("Programmer"));
+    ApplicationProcessor.applyToJob(seeker1, jobA, null);
+    // jReq job
     Resume resume2 = ResumeCreator.createResume(seeker1);
-    ApplicationProcessor.applyToJob(seeker1, job2, recruiter1, resume2);
+    ApplicationProcessor.applyToJob(seeker1, jobR, resume2);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testApplyToJobWithWrongInput()
   {
     Jobseeker seeker1 = new Jobseeker(new Name("David"));
-    Recruiter recruiter1 = new Recruiter(new Name("John"));
-    Job job1 = JobFactory.createJReqJob(new JobTitle("Developer"));
     Resume resume1 = ResumeCreator.createResume(seeker1);
-    ApplicationProcessor.applyToJob(null, job1, recruiter1, resume1);
-    ApplicationProcessor.applyToJob(seeker1, null, recruiter1, resume1);
-    ApplicationProcessor.applyToJob(seeker1, job1, null, resume1);
-    ApplicationProcessor.applyToJob(seeker1, job1, recruiter1, null);
+    // no resume
+    ApplicationProcessor.applyToJob(seeker1, jobR, null);
+    // wrong resume
+    ApplicationProcessor.applyToJob(seeker2, jobR, resume1);
   }
 }
   
