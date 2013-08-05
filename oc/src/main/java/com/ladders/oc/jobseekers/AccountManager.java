@@ -30,15 +30,10 @@ public class AccountManager
    * @param seeker Jobseeker instance.
    * @param job    Job instance.
    * @return true if the job was not saved before
-   * @throws IllegalArgumentException if any of the inputs are null.
    */
   public boolean saveViewedJob(Jobseeker seeker,
                                Job job)
   {
-    // validate
-    if ((seeker == null) || (job == null))
-      throw new IllegalArgumentException();
-
     Jobs jobs = savedJobs.get(seeker);
     
     if (jobs == null)

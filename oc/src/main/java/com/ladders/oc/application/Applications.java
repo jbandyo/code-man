@@ -14,12 +14,9 @@ public class Applications
    * Adds an application to the set.
    * @param  app  Application object.
    * @return true if the application was not added before.
-   * @throws IllegalArgumentException if input application object is null.
    */
   public void add(Application app)
   {
-    if (app == null)
-      throw new IllegalArgumentException();
     appSet.add(app);
   }
 

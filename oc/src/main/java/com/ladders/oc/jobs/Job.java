@@ -18,13 +18,13 @@ public abstract class Job implements DisplayableJob
    * @param _title    a JobTitle object
    * @throws IllegalArgumentException if title is null
    */
-  Job(JobTitle _title) 
+  Job(JobTitle title) 
   {
     // validate
-    if (_title == null)
-      throw new IllegalArgumentException();
+    if (title == null)
+      throw new IllegalArgumentException("Title is null");
 
-    title = _title;
+    this.title = title;
     // create a unique ID
     uId = UUID.randomUUID();
   }

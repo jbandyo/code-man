@@ -16,18 +16,16 @@ public class ApplicationProcessor
    * @param   job        PostedJob object
    * @param   recruiter  Recruiter object
    * @param   resume     Resume belonging to JobSeeker (can be null if job does not need it)
+   * @throws  IllegalArgumentException if resume required but not provided or resume is not owned
    */
   public static void applyToJob(Jobseeker seeker, Job job, Recruiter recruiter, Resume resume)
   {
-    if ((seeker == null) || (job == null) || (recruiter==null))
-      throw new IllegalArgumentException();
-    
     if (job.RequiresResume())
     {
       if (resume == null)
-        throw new IllegalArgumentException();
-      if (!resume.OwnedBy(seeker))
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Resume is required for this job");
+      if (!resume.ownedBy(seeker))
+        throw new IllegalArgumentException("The Resume is not owned by Jobseeker");
     }
 
     Application app = new Application(job, recruiter, seeker);

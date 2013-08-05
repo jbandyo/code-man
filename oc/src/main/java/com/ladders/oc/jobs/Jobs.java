@@ -11,19 +11,15 @@ import com.ladders.oc.displayers.JobsDisplayer;
  */
 public class Jobs implements DisplayableJobs
 {
-  private final Set<Job> jobSet = new LinkedHashSet<Job>();
+  private final Set<Job> jobSet = new HashSet<Job>();
 
   /**
    * Adds a job to the set of jobs.
    * @param  job  Job object.
    * @return true if the job was not added before.
-   * @throws IllegalArgumentException if input job object is null.
    */
   public boolean add(Job job)
   {
-    // validate
-    if (job == null)
-      throw new IllegalArgumentException();  
     return jobSet.add(job);    
   }
 

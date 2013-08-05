@@ -18,12 +18,12 @@ public class Jobseeker implements DisplayableJobseeker
    * Constructor.
    * @param _name    a Name object
    */
-  public Jobseeker(Name _name) throws IllegalArgumentException
+  public Jobseeker(Name name) throws IllegalArgumentException
   {
-    if (_name == null)
-      throw new IllegalArgumentException();
+    if (name == null)
+      throw new IllegalArgumentException("Name is null");
     
-    name = _name;
+    this.name = name;
     // create a unique ID
     uId = UUID.randomUUID();
   }

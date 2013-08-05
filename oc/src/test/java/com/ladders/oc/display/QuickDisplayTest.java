@@ -40,10 +40,10 @@ public class QuickDisplayTest
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
     // get back from repo
-    Jobs jobs = repo.getJobsPostedBy(recruiter1);
+    Jobs jobs = repo.jobsPostedBy(recruiter1);
     view.displayRecruiterJobs(recruiter1, jobs);
     
-    jobs = repo.getPostedJobs();
+    jobs = repo.allPostedJobs();
     Iterator<Job> iterator = jobs.getIterator();
     int i = 0;
     view.displayAllJobsStart();
@@ -51,7 +51,7 @@ public class QuickDisplayTest
     while (iterator.hasNext())
     {
       Job job = iterator.next();
-      view.displayAllJobsItem(job, repo.GetRecruiterByJob(job));
+      view.displayAllJobsItem(job, repo.getRecruiterByJob(job));
       if (i % 2 == 0)
       {
         manager.saveViewedJob(seeker1, job);
@@ -71,7 +71,7 @@ public class QuickDisplayTest
     while (iterator.hasNext())
     {
       Job jobx = iterator.next();
-      Recruiter recruiterx = repo.GetRecruiterByJob(jobx);
+      Recruiter recruiterx = repo.getRecruiterByJob(jobx);
       Resume resumex = ResumeCreator.createResume(seeker1);
       ApplicationProcessor.applyToJob(seeker1, jobx, recruiterx, resumex);
       view.displaySavedJobsItem(jobx);
@@ -145,7 +145,7 @@ public class QuickDisplayTest
     view.displayAggregateApplicationsByJob(job3, apps.getCount());
 
     view.reportByCSVStart();
-    apps = apprepo.getApplications(null);
+    apps = apprepo.getAllApplications();
     appiter = apps.getIterator();
     while (appiter.hasNext())
     {

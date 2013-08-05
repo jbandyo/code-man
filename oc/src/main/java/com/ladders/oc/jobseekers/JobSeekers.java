@@ -11,19 +11,15 @@ import com.ladders.oc.displayers.JobseekersDisplayer;
  */
 public class Jobseekers implements DisplayableJobseekers
 {
-  private final Set<Jobseeker> seekerSet = new LinkedHashSet<Jobseeker>();
+  private final Set<Jobseeker> seekerSet = new HashSet<Jobseeker>();
 
   /**
    * Adds a jobseeker to the set of jobseekers.
    * @param  seeker  JobSeeker object.
    * @return true if the seeker was not added before.
-   * @throws IllegalArgumentException if input jobseeker object is null.
    */
   public boolean add(Jobseeker seeker)
   {
-    // validate
-    if (seeker == null)
-      throw new IllegalArgumentException();  
     return seekerSet.add(seeker);    
   }
 
@@ -59,6 +55,5 @@ public class Jobseekers implements DisplayableJobseekers
     displayer.displayJobseekers(seekers);
     
   }
-
 
 }

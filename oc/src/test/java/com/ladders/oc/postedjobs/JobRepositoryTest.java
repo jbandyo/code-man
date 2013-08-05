@@ -56,14 +56,6 @@ public class JobRepositoryTest
     assertEquals("Newly constructed JobRepository instance should have zero size", repo.getNumberOfPostings(), 0);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testPostJobWithNullArgument()
-  {
-    repo.postJob(null, null);
-    repo.postJob(recruiter1, null);
-    repo.postJob(null, job1);
-  }
-
   @Test
   public void testPostJob()
   {
@@ -85,21 +77,15 @@ public class JobRepositoryTest
     assertEquals("Posting count should be zero after deleteAllPostings", repo.getNumberOfPostings(), 0);
   }
     
-  @Test(expected = IllegalArgumentException.class)
-  public void testListJobsWithNullArgument()
-  {
-    Jobs joblist = repo.getJobsPostedBy(null);
-  }
-
   @Test
   public void testGetPostedJobs()
   {
-    Jobs joblist = repo.getPostedJobs();
+    Jobs joblist = repo.allPostedJobs();
     assertEquals("GetJobs for a recruiter who did not post must return zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    joblist = repo.getPostedJobs();
+    joblist = repo.allPostedJobs();
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobsAll must return all jobs", joblist.getCount(), 3);
     assertTrue("GetJobsAll must contain posted job", joblist.contains(job1));
@@ -110,18 +96,18 @@ public class JobRepositoryTest
   @Test
   public void testGetJobsByRecruiter()
   {
-    Jobs joblist = repo.getJobsPostedBy(recruiter1);
+    Jobs joblist = repo.jobsPostedBy(recruiter1);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter who did not post must be zero", joblist.getCount(), 0);    
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    joblist = repo.getJobsPostedBy(recruiter1);
+    joblist = repo.jobsPostedBy(recruiter1);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 2);
     assertTrue("GetJobs must contain posted job", joblist.contains(job1));
     assertTrue("GetJobs must contain posted job", joblist.contains(job1));
-    joblist = repo.getJobsPostedBy(recruiter2);
+    joblist = repo.jobsPostedBy(recruiter2);
     assertNotNull("GetJobs must not return null", joblist);
     assertEquals("GetJobs for a recruiter must return all jobs posted by the recruiter", joblist.getCount(), 1);
     assertTrue("GetJobs must enter job posting correcty", joblist.contains(job3));
@@ -133,9 +119,9 @@ public class JobRepositoryTest
     repo.postJob(recruiter1, job1);
     repo.postJob(recruiter1, job2);
     repo.postJob(recruiter2, job3);
-    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.GetRecruiterByJob(job1), recruiter1);
-    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.GetRecruiterByJob(job2), recruiter1);
-    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.GetRecruiterByJob(job3), recruiter2);
+    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.getRecruiterByJob(job1), recruiter1);
+    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.getRecruiterByJob(job2), recruiter1);
+    assertEquals("GetRecruiterByJob must return correct recruiter instance", repo.getRecruiterByJob(job3), recruiter2);
     
   }
 }

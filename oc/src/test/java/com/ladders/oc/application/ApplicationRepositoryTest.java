@@ -119,4 +119,17 @@ public class ApplicationRepositoryTest
     apps = repo.getApplications(filter);
     assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 2);
   }
+  
+  @Test
+  public void testGetAllApplications()
+  {
+    Application app1 = new Application(job1, recruiter1, seeker1);
+    repo.addApplication(app1);
+    Application app2 = new Application(job1, recruiter1, seeker2);
+    repo.addApplication(app2);
+    Application app3 = new Application(job2, recruiter2, seeker2);
+    repo.addApplication(app3);
+    Applications apps = repo.getAllApplications();
+    assertEquals("GetApplications should return correct number of Applications", apps.getCount(), 3);   
+  }
 }

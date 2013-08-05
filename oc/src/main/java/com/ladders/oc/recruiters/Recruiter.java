@@ -18,12 +18,12 @@ public class Recruiter implements DisplayableRecruiter
    * Constructor.
    * @param _name    a Name object
    */
-  public Recruiter(Name _name) throws IllegalArgumentException
+  public Recruiter(Name name) throws IllegalArgumentException
   {
-    if (_name == null)
-      throw new IllegalArgumentException();
+    if (name == null)
+      throw new IllegalArgumentException("Name is null");
     
-    name = _name;
+    this.name = name;
     // create a unique ID
     uId = UUID.randomUUID();
   }

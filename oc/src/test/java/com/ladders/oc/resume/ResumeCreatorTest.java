@@ -20,7 +20,7 @@ public class ResumeCreatorTest
     Jobseeker seeker = new Jobseeker(new Name("David"));
     Resume resume = ResumeCreator.createResume(seeker);
     assertNotNull("CreateResume must create the object", resume);
-    boolean result = resume.OwnedBy(seeker);
+    boolean result = resume.ownedBy(seeker);
     assertTrue("Resume must validate the correct JobSeeker", result);
   }
 

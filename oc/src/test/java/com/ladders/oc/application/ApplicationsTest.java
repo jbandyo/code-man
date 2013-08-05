@@ -63,18 +63,13 @@ public class ApplicationsTest
     assertEquals("Newly constructed Applications instance should have zero size", apps.getCount(), 0);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testAddWithNullArgument()
-  {
-    apps.add(null);
-  }
-
   @Test
   public void testAdd()
   {
+    assertEquals("Application count should be zero before test", apps.getCount(), 0);
     app1 = new Application(job1, recruiter1, seeker1);
     apps.add(app1);
-    assertEquals("Application count should go up by one after add", apps.getCount(), 1); // assuming single-threaded testing
+    assertEquals("Application count should go up by one after add", apps.getCount(), 1);
     apps.deleteAll();
     assertEquals("Application count should be zero after deleteAll", apps.getCount(), 0);
   }

@@ -68,12 +68,6 @@ public class ApplicationTest
     assertTrue("Application field test should work correctly", app.containsDate(now));
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testRetrieveJobSeekerWithNullInput()
-  {
-    Jobseekers seekers = Application.retrieveJobSeekers(null);    
-  }
-
   @Test
   public void testRetrieveJobSeeker()
   {

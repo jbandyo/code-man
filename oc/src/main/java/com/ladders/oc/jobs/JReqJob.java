@@ -10,9 +10,9 @@ public class JReqJob extends Job
    * @param _title    a JobTitle object
    * @throws IllegalArgumentException if title is null
    */
-  JReqJob(JobTitle _title) 
+  JReqJob(JobTitle title) 
   {
-    super(_title);
+    super(title);
   }
 
   /**

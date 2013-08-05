@@ -10,9 +10,9 @@ public class ATSJob extends Job
    * @param _title    a JobTitle object
    * @throws IllegalArgumentException if title is null
    */
-  ATSJob(JobTitle _title) 
+  ATSJob(JobTitle title) 
   {
-    super(_title);
+    super(title);
   }
 
   /**

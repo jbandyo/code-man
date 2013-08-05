@@ -10,7 +10,7 @@ public class Resume
     jobSeeker = seeker;
   }
   
-  public boolean OwnedBy(Jobseeker seeker)
+  public boolean ownedBy(Jobseeker seeker)
   {
     return (seeker == jobSeeker);
   }

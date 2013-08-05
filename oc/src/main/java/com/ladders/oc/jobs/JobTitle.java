@@ -15,14 +15,17 @@ public class JobTitle implements DisplayableJobTitle
    * @param _title    a string that describes Job Title
    * @throws IllegalArgumentException if the input argument is null or of length zero
    */
-  public JobTitle(String _title)
+  public JobTitle(String title)
   {
     // validate
-    if ((_title == null) || (_title.length() == 0))
-      throw new IllegalArgumentException();
- 
+    if (title == null)
+      throw new IllegalArgumentException("Title is null");
+
+    if (title.length() == 0)
+      throw new IllegalArgumentException("Title is of zero length");
+
     // check for max length ???
-    title = _title;
+    this.title = title;
   }
 
   @Override

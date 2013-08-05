@@ -51,12 +51,14 @@ public class ApplicationRepository
     appSet.clear();
   }
 
-  public Applications getApplications(Filter _filter)
+  public Applications getAllApplications()
   {
-    Filter filter = _filter;
-    if  (filter == null)
-      filter = new Filter(null, null, null, null);
-    
+    Filter filter = createFilter(null, null, null, null);
+    return getApplications(filter);
+  }
+
+  public Applications getApplications(Filter filter)
+  {
     Applications apps = new Applications();
     synchronized (appSet)
     {

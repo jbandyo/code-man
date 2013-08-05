@@ -45,17 +45,12 @@ public class JobSeekersTest
     assertEquals("Newly constructed JobSeekers instance should have zero size", seekers.getCount(), 0);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testAddWithNullArgument()
-  {
-    seekers.add(null);
-  }
-
   @Test
   public void testAdd()
   {
+    assertEquals("JobSeekers count should be zero before test", seekers.getCount(), 0);
     seekers.add(seeker1);
-    assertEquals("JobSeekers count should go up by one after add", seekers.getCount(), 1); // assuming single-threaded testing
+    assertEquals("JobSeekers count should go up by one after add", seekers.getCount(), 1);
     seekers.add(seeker2);
     assertTrue("Add must enter jobseeker correcty", seekers.contains(seeker1));
     assertTrue("Add must enter jobseeker correcty", seekers.contains(seeker2));

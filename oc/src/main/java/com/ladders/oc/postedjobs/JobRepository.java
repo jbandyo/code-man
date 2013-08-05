@@ -33,15 +33,10 @@ public class JobRepository
    * @param recruiter  Recruiter instance
    * @param job        Job instance
    * @return true if the job was not posted before
-   * @throws IllegalArgumentException
    */
   public boolean postJob(Recruiter recruiter,
                       Job job)
   {
-    // validate
-    if ((recruiter == null) || (job == null))
-      throw new IllegalArgumentException();
-
     // add posting to repository
     if (postedJobs.containsKey(job))
       return false;
@@ -64,14 +59,9 @@ public class JobRepository
    * Returns postings entered by a recruiter.
    * @param  recruiter  Recruiter instance
    * @return list of job postings
-   * @throws IllegalArgumentException
    */
-  public Jobs getJobsPostedBy(Recruiter recruiter)
+  public Jobs jobsPostedBy(Recruiter recruiter)
   {
-    // validate
-    if (recruiter == null)
-      throw new IllegalArgumentException();
-
     Jobs postings = new Jobs();
     synchronized (postedJobs)
     {
@@ -88,7 +78,7 @@ public class JobRepository
    * Returns all posted jobs.
    * @return list of postings
    */
-  public Jobs getPostedJobs()
+  public Jobs allPostedJobs()
   {
     Jobs postings = new Jobs();
     synchronized (postedJobs)
@@ -105,14 +95,9 @@ public class JobRepository
    * Returns recruiter who posted a given job.
    * @param  job  Job instance
    * @return recruiter instance
-   * @throws IllegalArgumentException
    */
-  public Recruiter GetRecruiterByJob(Job job)
+  public Recruiter getRecruiterByJob(Job job)
   {
-    // validate
-    if (job == null)
-      throw new IllegalArgumentException();
-
     return postedJobs.get(job);
   }
 }
